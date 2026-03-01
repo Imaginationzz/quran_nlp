@@ -135,10 +135,11 @@ export default function VerseSimilarity() {
         }
         .essence-text {
           font-size: 1.35rem;
-          line-height: 1.7;
+          line-height: 1.8;
           color: var(--text-primary);
-          font-weight: 600;
+          font-weight: 700;
           margin-bottom: 2.5rem;
+          text-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
         .maqasid-sections {
           display: grid;
@@ -161,8 +162,9 @@ export default function VerseSimilarity() {
           padding-right: 1.5rem;
           margin-bottom: 1rem;
           line-height: 1.6;
-          color: var(--text-secondary);
+          color: var(--text-primary);
           font-size: 1.1rem;
+          font-weight: 500;
         }
         .maqasid-section li::before {
           content: "•";

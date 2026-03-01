@@ -19,6 +19,12 @@
 
   --font-arabic-classic: 'Amiri', serif;
   --font-arabic-modern: 'Noto Sans Arabic', sans-serif;
+
+  /* Semantic Tokens */
+  --bg-main: var(--background);
+  --bg-surface: #ffffff;
+  --text-primary: var(--foreground);
+  --text-secondary: #475569;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,6 +32,8 @@
     --background: #0f172a;
     --foreground: #f8fafc;
     --border: #1e293b;
+    --bg-surface: #1e293b;
+    --text-secondary: #94a3b8;
   }
 }
 

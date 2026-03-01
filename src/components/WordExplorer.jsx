@@ -241,9 +241,8 @@ export default function WordExplorer() {
         }
         .control-item label {
           font-weight: 700;
-          color: var(--slate-dark);
+          color: var(--text-secondary);
           font-size: 0.95rem;
-          opacity: 0.9;
         }
         .control-item input[type="number"]:not(.input-with-label input) {
           padding: 0.6rem 1rem;
