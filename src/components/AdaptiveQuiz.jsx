@@ -196,9 +196,9 @@ export default function AdaptiveQuiz() {
           gap: 1.5rem;
         }
         .refresh-btn {
-          background: #f8fafc;
-          border: 1px solid #e2e8f0;
-          color: var(--slate-dark);
+          background: var(--bg-main);
+          border: 1px solid var(--border);
+          color: var(--text-primary);
           padding: 0.6rem 1.2rem;
           border-radius: 12px;
           font-size: 0.85rem;
@@ -269,7 +269,7 @@ export default function AdaptiveQuiz() {
         .question-prompt {
           font-size: 1.5rem;
           font-weight: 800;
-          color: var(--slate-dark);
+          color: var(--text-primary);
           margin-bottom: 2rem;
           text-align: center;
           display: flex;
@@ -279,7 +279,7 @@ export default function AdaptiveQuiz() {
         .sub-prompt {
           font-size: 1rem;
           font-weight: 500;
-          opacity: 0.6;
+          color: var(--text-secondary);
         }
         .options-stack {
           display: flex;

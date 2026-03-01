@@ -299,7 +299,7 @@ export default function WordExplorer() {
         }
         .word-arabic {
           font-size: 2.2rem;
-          color: var(--slate-dark);
+          color: var(--text-primary);
           transition: color 0.2s;
         }
         @media (max-width: 768px) {
@@ -316,8 +316,7 @@ export default function WordExplorer() {
         }
         .word-translation {
           font-size: 0.85rem;
-          color: var(--slate-dark);
-          opacity: 0.6;
+          color: var(--text-secondary);
           margin-top: 0.4rem;
           font-family: var(--font-inter);
           text-align: center;
@@ -408,7 +407,7 @@ export default function WordExplorer() {
         .meaning-text {
           font-size: 1.15rem;
           font-weight: 600;
-          color: var(--slate-dark);
+          color: var(--text-primary);
         }
         .meaning-item.rtl .meaning-text {
           font-size: 1.9rem;
@@ -480,7 +479,7 @@ export default function WordExplorer() {
         .lexicon-text {
           font-size: 1.1rem;
           line-height: 1.7;
-          color: var(--slate-dark);
+          color: var(--text-primary);
           margin: 0;
           font-weight: 500;
           white-space: pre-line;
@@ -520,8 +519,7 @@ export default function WordExplorer() {
         .detail-label {
           font-size: 0.7rem;
           font-weight: 700;
-          color: var(--slate-dark);
-          opacity: 0.5;
+          color: var(--text-secondary);
           text-transform: uppercase;
         }
         .detail-value {

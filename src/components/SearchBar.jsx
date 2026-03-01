@@ -250,7 +250,7 @@ export default function SearchBar() {
         }
         .tag-value {
           font-size: 1.6rem;
-          color: var(--slate-dark);
+          color: var(--text-primary);
           line-height: 1;
         }
         .res-ctx {
@@ -293,7 +293,7 @@ export default function SearchBar() {
         .meaning-text {
           font-size: 0.95rem;
           line-height: 1.6;
-          color: var(--slate-dark);
+          color: var(--text-primary);
           margin: 0;
         }
         .meaning-text.quranic-text {

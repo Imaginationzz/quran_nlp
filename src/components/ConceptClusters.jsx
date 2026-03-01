@@ -206,7 +206,7 @@ export default function ConceptClusters() {
           border-radius: 50%;
           font-size: 1.2rem;
           cursor: pointer;
-          color: var(--slate-dark);
+          color: var(--text-primary);
           transition: all 0.2s;
         }
         .close-btn:hover {
@@ -239,10 +239,9 @@ export default function ConceptClusters() {
         }
         .concept-desc {
           font-size: 1rem;
-          color: var(--slate-dark);
+          color: var(--text-secondary);
           line-height: 1.5;
           margin-bottom: 0.4rem;
-          opacity: 0.8;
         }
         .concept-desc-ar {
           font-size: 1.3rem;
@@ -267,7 +266,7 @@ export default function ConceptClusters() {
         }
         .detail-section h4 {
           font-size: 0.95rem;
-          color: var(--slate-dark);
+          color: var(--text-primary);
           margin-bottom: 1rem;
           font-weight: 800;
           text-transform: uppercase;
@@ -299,11 +298,10 @@ export default function ConceptClusters() {
           font-size: 1.1rem;
         }
         .sw-en {
-          color: var(--slate-dark);
+          color: var(--text-secondary);
           font-size: 0.75rem;
           font-weight: 600;
           text-transform: uppercase;
-          opacity: 0.6;
         }
         .verses-list {
           display: flex;
