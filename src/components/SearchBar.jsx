@@ -151,9 +151,15 @@ export default function SearchBar() {
           background: none;
           border: none;
           padding: 0.8rem;
-          font-size: 1rem;
+          font-size: 1.2rem;
           outline: none;
           padding-right: 2.5rem;
+          color: var(--text-primary);
+          font-weight: 600;
+        }
+        .search-input::placeholder {
+          color: var(--text-secondary);
+          opacity: 0.7;
         }
         .btn-clear {
           background: none;
