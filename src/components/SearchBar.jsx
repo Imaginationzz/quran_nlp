@@ -23,6 +23,9 @@ export default function SearchBar() {
     } finally {
       setLoading(false);
     }
+  const handleClear = () => {
+    setQuery('');
+    setResults([]);
   };
 
   return (
@@ -34,13 +37,20 @@ export default function SearchBar() {
           <option value="root">{getDual('search.modes.root')}</option>
           <option value="semantic">{getDual('search.modes.semantic')}</option>
         </select>
-        <input
-          type="text"
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          placeholder={`${getDual('search.placeholder')} ${getDual('search.modes.' + type)}...`}
-          className="search-input"
-        />
+        <div className="input-wrapper">
+          <input
+            type="text"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder={`${getDual('search.placeholder')} ${getDual('search.modes.' + type)}...`}
+            className="search-input"
+          />
+          {(query || results.length > 0) && (
+            <button type="button" onClick={handleClear} className="btn-clear" title="Clear Search">
+              ✕
+            </button>
+          )}
+        </div>
         <button type="submit" className="btn-primary">{getDual('search.button')}</button>
       </form>
 
@@ -128,6 +138,12 @@ export default function SearchBar() {
           cursor: pointer;
           min-width: 150px;
         }
+        .input-wrapper {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          position: relative;
+        }
         .search-input {
           flex: 1;
           background: none;
@@ -135,6 +151,24 @@ export default function SearchBar() {
           padding: 0.8rem;
           font-size: 1rem;
           outline: none;
+          padding-right: 2.5rem;
+        }
+        .btn-clear {
+          background: none;
+          border: none;
+          color: var(--text-secondary);
+          font-size: 1.2rem;
+          cursor: pointer;
+          position: absolute;
+          right: 0.5rem;
+          opacity: 0.6;
+          transition: all 0.2s;
+          padding: 0.5rem;
+        }
+        .btn-clear:hover {
+          opacity: 1;
+          color: #ef4444;
+          transform: scale(1.1);
         }
         .btn-primary {
           white-space: nowrap;
