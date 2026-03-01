@@ -193,16 +193,17 @@ export default function WordExplorer() {
             transition: all 0.2s;
         }
         .view-toggle button.active {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(6, 95, 70, 0.2);
         }
         .word-explorer {
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
-          background: rgba(255, 255, 255, 0.7);
+          background: var(--bg-surface);
           padding: 1.5rem;
+          border: 1px solid var(--border);
         }
         @media (max-width: 768px) {
           .word-explorer {
