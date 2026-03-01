@@ -182,6 +182,12 @@ export default function WordExplorer() {
           flex-direction: column;
           gap: 1.5rem;
           background: rgba(255, 255, 255, 0.7);
+          padding: 1.5rem;
+        }
+        @media (max-width: 768px) {
+          .word-explorer {
+            padding: 1rem;
+          }
         }
         .controls {
           display: flex;
@@ -438,6 +444,21 @@ export default function WordExplorer() {
           width: 4px;
           height: 100%;
           background: var(--primary);
+        }
+        @media (max-width: 768px) {
+          .essence-card-premium {
+            padding: 1.2rem;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+          .essence-icon {
+            margin-bottom: 0.5rem;
+          }
+          .lexicon-text {
+            font-size: 1rem;
+            text-align: center;
+          }
         }
         .essence-icon {
           font-size: 1.8rem;

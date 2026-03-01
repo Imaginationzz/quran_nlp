@@ -5,7 +5,7 @@ export const translations = {
         footer: "Dedicated to the deep exploration of the Divine Word.",
         search: {
             title: "Thematic Search",
-            desc: "Semantic AI & Root exploration.",
+            desc: "Semantic AI Search & Root Navigation.",
             placeholder: "Search by ",
             button: "Search",
             loading: "Searching the Quran...",
@@ -17,7 +17,7 @@ export const translations = {
         },
         explorer: {
             title: "Word Essence",
-            desc: "Morphological depth & meaning.",
+            desc: "Scholarly Lexicon | 100% Scholarly Coverage (Surahs 1-5).",
             surah: "Surah",
             ayah: "Ayah",
             analysis: "Word Analysis",
@@ -26,7 +26,7 @@ export const translations = {
         },
         similarity: {
             title: "Verse Mirror",
-            desc: "Conceptual duality & connections.",
+            desc: "AI Conceptual Mapping & Symmetry Analysis.",
             verse1: "Verse 1 (Sura:Aya)",
             verse2: "Verse 2 (Sura:Aya)",
             compare: "Compare Verses",
@@ -35,7 +35,7 @@ export const translations = {
         },
         quiz: {
             title: "Context Master",
-            desc: "Insight and Tafsir challenge.",
+            desc: "Context Challenges & Tafsir Insights.",
             score: "Score",
             location: "Verse Location",
             nextWord: "Next Word",
@@ -45,7 +45,7 @@ export const translations = {
         },
         concepts: {
             title: "Concept Clusters",
-            desc: "Quranic thematic architecture."
+            desc: "Thematic Architecture of the Revelation."
         }
     },
     ar: {
@@ -55,7 +55,7 @@ export const translations = {
         footer: "مكرس للتدبر العميق في جواهر آيات الذكر الحكيم.",
         search: {
             title: "آفاق التدبر",
-            desc: "استكشاف المعاني والمقاصد الدلالية.",
+            desc: "البحث الدلالي بالذكاء الاصطناعي والجذور.",
             placeholder: "بحث عن طريق ",
             button: "بحث",
             loading: "جاري البحث في القرآن...",
@@ -67,7 +67,7 @@ export const translations = {
         },
         explorer: {
             title: "جواهر الكلمات",
-            desc: "الغوص في عمق الألفاظ ومعانيها.",
+            desc: "معجم علمي | تغطية شاملة بنسبة 100% لأول 5 سور.",
             surah: "السورة",
             ayah: "الآية",
             analysis: "تحليل الكلمة",
@@ -76,7 +76,7 @@ export const translations = {
         },
         similarity: {
             title: "بصائر الترابط",
-            desc: "كشف التناغم والتماثل بين الآيات.",
+            desc: "تحليل التناظر والتماثل الدلالي بالذكاء الاصطناعي.",
             verse1: "آية 1 (سورة:آية)",
             verse2: "آية 2 (سورة:آية)",
             compare: "قارن الآيات",
@@ -85,7 +85,7 @@ export const translations = {
         },
         quiz: {
             title: "مشكاة الفهم",
-            desc: "تحدي السياق واستنباط الحكمة.",
+            desc: "تحديات السياق وإتقان استنباط الحِكم والتفاسير.",
             score: "النتيجة",
             location: "موقع الآية",
             nextWord: "الكلمة التالية",
@@ -95,7 +95,7 @@ export const translations = {
         },
         concepts: {
             title: "نسيج الهداية",
-            desc: "البنية الموضوعية الكبرى للقرآن."
+            desc: "البنية الموضوعية الكبرى لآيات الذكر الحكيم."
         }
     }
 };

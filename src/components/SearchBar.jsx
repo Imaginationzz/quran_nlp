@@ -305,6 +305,54 @@ export default function SearchBar() {
           animation: slideUp 0.3s ease-out;
         }
         
+        @media (max-width: 768px) {
+          .search-form {
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            background: white;
+          }
+          .search-select {
+            border-bottom: 1px solid var(--border);
+            padding: 0.8rem 0;
+            width: 100%;
+            text-align: center;
+          }
+          .search-input {
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0.5rem;
+          }
+          .btn-primary {
+            width: 100%;
+            padding: 1rem;
+          }
+          .res-main {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          .res-word {
+            font-size: 1.6rem;
+          }
+          .res-loc {
+            align-self: flex-start;
+          }
+          .res-details {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+          }
+          .tag-value {
+            font-size: 1.2rem;
+          }
+          .res-meanings {
+            padding: 0.8rem;
+          }
+          .meaning-text.quranic-text {
+            font-size: 1.1rem;
+          }
+        }
+        
         @keyframes slideUp {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }

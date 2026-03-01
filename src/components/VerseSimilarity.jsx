@@ -171,9 +171,45 @@ export default function VerseSimilarity() {
           color: var(--primary);
           font-weight: bold;
         }
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
+          .surah-essence {
+            padding: 1rem;
+            gap: 1.5rem;
+          }
+          .surah-essence h2 {
+            font-size: 1.8rem;
+            text-align: center;
+          }
+          .selection-area {
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+            text-align: center;
+          }
+          .surah-dropdown {
+            min-width: unset;
+            width: 100%;
+            font-size: 1rem;
+          }
+          .essence-card {
+            padding: 1.5rem;
+          }
+          .essence-header h3 {
+            font-size: 1.25rem;
+          }
+          .essence-text {
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+          }
           .maqasid-sections {
             grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+          .maqasid-section h4 {
+            font-size: 1.1rem;
+          }
+          .maqasid-section li {
+            font-size: 1rem;
           }
         }
         @keyframes fadeIn {

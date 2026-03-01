@@ -259,6 +259,17 @@ a:hover {
   }
 }
 
+@media (max-width: 600px) {
+  .card {
+    padding: 1.2rem;
+    border-radius: 16px;
+  }
+
+  main {
+    padding: 1rem !important;
+  }
+}
+
 @media (max-width: 480px) {
   .service-card {
     min-width: 100%;
