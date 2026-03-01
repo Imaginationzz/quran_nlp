@@ -218,7 +218,7 @@ export default function WordExplorer() {
           display: flex;
           align-items: center;
           gap: 1rem;
-          background: white;
+          background: var(--bg-surface);
           padding: 0.2rem 1rem;
           border-radius: 12px;
           border: 1px solid var(--border);
@@ -264,7 +264,7 @@ export default function WordExplorer() {
           align-items: start;
         }
         .ayah-display {
-          background: white;
+          background: var(--bg-surface);
           padding: 2.5rem;
           border-radius: 20px;
           border: 1px solid var(--border);
@@ -362,7 +362,7 @@ export default function WordExplorer() {
           display: inline-block;
         }
         .meaning-box {
-          background: white;
+          background: var(--bg-surface);
           padding: 1.2rem;
           border-radius: 16px;
           margin-bottom: 1.5rem;
@@ -504,7 +504,7 @@ export default function WordExplorer() {
           }
         }
         .detail-mini-card {
-          background: white;
+          background: var(--bg-surface);
           padding: 1rem;
           border-radius: 15px;
           border: 1px solid var(--border);

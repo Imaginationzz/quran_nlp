@@ -152,7 +152,7 @@ export default function SearchBar() {
           display: flex;
           flex-direction: column;
           padding: 1.2rem;
-          background: white;
+          background: var(--bg-surface);
           border-radius: 16px;
           border: 1px solid var(--border);
           gap: 1rem;
@@ -310,7 +310,7 @@ export default function SearchBar() {
             flex-direction: column;
             gap: 0.5rem;
             padding: 0.8rem;
-            background: white;
+            background: var(--bg-surface);
           }
           .search-select {
             border-bottom: 1px solid var(--border);

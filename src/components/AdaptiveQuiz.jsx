@@ -138,7 +138,7 @@ export default function AdaptiveQuiz() {
         .quiz-module {
           max-width: 900px;
           margin: 0 auto;
-          background: #fff;
+          background: var(--bg-surface);
           padding: 3rem;
           border-radius: 24px;
         }
@@ -258,10 +258,10 @@ export default function AdaptiveQuiz() {
         }
         .location-badge {
           display: inline-block;
-          background: white;
+          background: var(--bg-main);
           padding: 0.4rem 1.2rem;
           border-radius: 30px;
-          border: 1px solid #eee;
+          border: 1px solid var(--border);
           font-size: 0.85rem;
           font-weight: 700;
           color: var(--text-secondary);
@@ -291,8 +291,8 @@ export default function AdaptiveQuiz() {
           align-items: center;
           gap: 1.5rem;
           padding: 1.5rem 2rem;
-          background: white;
-          border: 2px solid #f0f0f0;
+          background: var(--bg-main);
+          border: 2px solid var(--border);
           border-radius: 16px;
           cursor: pointer;
           transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -321,6 +321,7 @@ export default function AdaptiveQuiz() {
           color: var(--text-primary);
           line-height: 1.6;
           flex-grow: 1;
+          font-weight: 600;
         }
         .option-card.correct {
           background: rgba(6, 95, 70, 0.05);

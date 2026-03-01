@@ -121,7 +121,7 @@ export default function ConceptClusters() {
         }
         .concept-names .name-en {
           font-size: 0.8rem;
-          color: var(--slate-dark);
+          color: var(--text-primary);
           margin-bottom: 0.05rem;
           font-weight: 700;
           letter-spacing: -0.01em;
@@ -260,6 +260,11 @@ export default function ConceptClusters() {
           flex-direction: column;
           gap: 2rem;
         }
+        .res-ctx {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+          font-weight: 500;
+        }
         .detail-section h4 {
           font-size: 0.95rem;
           color: var(--slate-dark);
@@ -271,7 +276,6 @@ export default function ConceptClusters() {
         .similar-words-container {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.6rem;
         }
         .similar-word-tag {
           background: rgba(6, 95, 70, 0.05);
