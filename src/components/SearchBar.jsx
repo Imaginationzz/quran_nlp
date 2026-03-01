@@ -23,6 +23,8 @@ export default function SearchBar() {
     } finally {
       setLoading(false);
     }
+  };
+
   const handleClear = () => {
     setQuery('');
     setResults([]);
