@@ -53,7 +53,7 @@ export default function SearchBar() {
             </button>
           )}
         </div>
-        <button type="submit" className="btn-primary">{getDual('search.button')}</button>
+        <button type="submit" className="btn-primary" style={{fontWeight: 800, fontSize: '1.1rem'}}>{getDual('search.button')}</button>
       </form>
 
       {loading ? (
@@ -134,7 +134,7 @@ export default function SearchBar() {
           background: none;
           border: none;
           padding: 0 1rem;
-          font-weight: 600;
+          font-weight: 700;
           color: var(--primary);
           outline: none;
           cursor: pointer;
