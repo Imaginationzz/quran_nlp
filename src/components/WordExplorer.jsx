@@ -30,6 +30,17 @@ export default function WordExplorer() {
     }
   };
 
+  const nextAya = () => setAya(prev => prev + 1);
+  const prevAya = () => setAya(prev => Math.max(1, prev - 1));
+  const nextSura = () => {
+    setSura(prev => Math.min(114, prev + 1));
+    setAya(1);
+  };
+  const prevSura = () => {
+    setSura(prev => Math.max(1, prev - 1));
+    setAya(1);
+  };
+
   return (
     <div className="word-explorer card">
       <div className="header-flex">
@@ -48,15 +59,24 @@ export default function WordExplorer() {
 
       <div className="controls">
         <div className="control-item">
-          <label>{getDual('explorer.surah')}:</label>
-          <div className="input-with-label">
-            <input type="number" min="1" max="114" value={sura} onChange={(e) => setSura(Number(e.target.value))} />
-            <span className="surah-name quranic-text">{SURAH_NAMES[sura]}</span>
+          <label className="input-label">{getDual('explorer.surah')}:</label>
+          <div className="input-group">
+            <button onClick={prevSura} className="nav-arrow" disabled={sura <= 1}>❮</button>
+            <div className="input-with-label">
+              <input type="number" min="1" max="114" value={sura} onChange={(e) => setSura(Number(e.target.value))} />
+              <span className="surah-name quranic-text">{SURAH_NAMES[sura]}</span>
+            </div>
+            <button onClick={nextSura} className="nav-arrow" disabled={sura >= 114}>❯</button>
           </div>
         </div>
+
         <div className="control-item">
-          <label>{getDual('explorer.ayah')}:</label>
-          <input type="number" min="1" max="286" value={aya} onChange={(e) => setAya(Number(e.target.value))} />
+          <label className="input-label">{getDual('explorer.ayah')}:</label>
+          <div className="input-group">
+            <button onClick={prevAya} className="nav-arrow" disabled={aya <= 1}>❮</button>
+            <input type="number" min="1" max="286" value={aya} onChange={(e) => setAya(Number(e.target.value))} className="ayah-input" />
+            <button onClick={nextAya} className="nav-arrow">❯</button>
+          </div>
         </div>
       </div>
 
@@ -209,28 +229,73 @@ export default function WordExplorer() {
             text-align: center;
           }
         }
-        .control-item {
+        .control-item .input-label {
+          font-weight: 800;
+          color: var(--text-primary);
+          font-size: 1rem;
+          min-width: 80px;
+        }
+        .input-group {
           display: flex;
           align-items: center;
-          gap: 1rem;
+          gap: 0.8rem;
+          background: var(--bg-surface);
+          padding: 0.4rem;
+          border-radius: 16px;
+          border: 1px solid var(--border);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .nav-arrow {
+          background: var(--bg-main);
+          border: 1px solid var(--border);
+          color: var(--primary);
+          width: 36px;
+          height: 36px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 0.9rem;
+          transition: all 0.2s;
+          font-weight: bold;
+        }
+        .nav-arrow:hover:not(:disabled) {
+          background: var(--primary);
+          color: white;
+          border-color: var(--primary);
+          transform: scale(1.1);
+        }
+        .nav-arrow:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+        .ayah-input {
+          border: none !important;
+          background: transparent !important;
+          width: 60px !important;
+          text-align: center;
+          font-size: 1.2rem !important;
+          font-weight: 800 !important;
+          color: var(--primary) !important;
+          outline: none;
         }
         .input-with-label {
           display: flex;
           align-items: center;
           gap: 1rem;
-          background: var(--bg-surface);
-          padding: 0.2rem 1rem;
+          padding: 0 0.5rem;
           border-radius: 12px;
-          border: 1px solid var(--border);
-          box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
         .input-with-label input {
           border: none;
           outline: none;
-          width: 50px;
+          width: 45px;
           font-weight: 800;
           color: var(--primary);
-          font-size: 1.1rem;
+          font-size: 1.2rem;
+          background: transparent;
+          text-align: center;
         }
         .surah-name {
           color: var(--primary);
@@ -238,21 +303,7 @@ export default function WordExplorer() {
           font-weight: 700;
           line-height: 1;
           margin-bottom: -4px;
-        }
-        .control-item label {
-          font-weight: 700;
-          color: var(--text-secondary);
-          font-size: 0.95rem;
-        }
-        .control-item input[type="number"]:not(.input-with-label input) {
-          padding: 0.6rem 1rem;
-          border-radius: 12px;
-          border: 1px solid var(--border);
-          width: 90px;
-          outline: none;
-          font-weight: 800;
-          color: var(--primary);
-          font-size: 1.1rem;
+          min-width: 100px;
         }
         input:focus {
           border-color: var(--primary-light);
