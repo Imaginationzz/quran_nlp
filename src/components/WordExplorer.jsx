@@ -475,15 +475,16 @@ export default function WordExplorer() {
           margin-top: 1rem;
         }
         .essence-card-premium {
-          background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
-          border: 1px solid var(--primary-light);
-          border-radius: 20px;
-          padding: 1.5rem;
-          display: flex;
-          gap: 1.2rem;
-          box-shadow: 0 10px 30px rgba(6, 95, 70, 0.05);
+          background: var(--bg-surface);
+          border: 2px solid #065f46;
+          border-radius: 24px;
+          padding: 2.5rem;
+          margin: 1.5rem 0;
+          text-align: center;
           position: relative;
           overflow: hidden;
+          box-shadow: 0 10px 30px rgba(6, 95, 70, 0.1);
+          transition: all 0.3s;
         }
         .essence-card-premium::before {
           content: '';
