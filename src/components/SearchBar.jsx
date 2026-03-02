@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { getDual } from '@/lib/translations';
 
 export default function SearchBar() {
+  const router = useRouter();
   const [query, setQuery] = useState('');
   const [type, setType] = useState('keyword');
   const [results, setResults] = useState([]);
@@ -53,7 +55,7 @@ export default function SearchBar() {
             </button>
           )}
         </div>
-        <button type="submit" className="btn-primary" style={{fontWeight: 800, fontSize: '1.1rem'}}>{getDual('search.button')}</button>
+        <button type="submit" className="btn-primary" style={{ fontWeight: 800, fontSize: '1.1rem' }}>{getDual('search.button')}</button>
       </form>
 
       {loading ? (
@@ -75,6 +77,31 @@ export default function SearchBar() {
                 <span className="res-loc">{res.location}</span>
               </div>
               <div className="res-details">
+                <div className="res-header-actions">
+                  <span className="res-ctx">{res.context}</span>
+                  <div className="res-actions mini">
+                    <button
+                      className="btn-action explorer mini"
+                      title="Explore Word"
+                      onClick={() => {
+                        const [sura, aya] = res.location.split(':');
+                        router.push(`/?sura=${sura}&aya=${aya}${res.wordIdx ? `&word=${res.wordIdx}` : ''}#explorer`);
+                      }}
+                    >
+                      🔍
+                    </button>
+                    <button
+                      className="btn-action maqasid mini"
+                      title="View Surah Essence"
+                      onClick={() => {
+                        const [sura] = res.location.split(':');
+                        router.push(`/?sura=${sura}&view=maqasid#similarity`);
+                      }}
+                    >
+                      📖
+                    </button>
+                  </div>
+                </div>
                 <div className="res-semantic">
                   {res.pos && (
                     <span className="pos-badge">{res.pos}</span>
@@ -92,11 +119,15 @@ export default function SearchBar() {
                     </span>
                   )}
                 </div>
-                <span className="res-ctx">{res.context}</span>
               </div>
 
               {(res.summaryAr || res.translationEn) && (
                 <div className="res-meanings animate-slide-up">
+                  {res.isConceptMatch && (
+                    <div className="concept-match-badge">
+                      ✨ Scholarly Concept Match
+                    </div>
+                  )}
                   {res.summaryAr && (
                     <div className="meaning-block arabic">
                       <span className="meaning-label">ملخص الآية</span>
@@ -342,6 +373,83 @@ export default function SearchBar() {
           font-size: 1.25rem;
           color: var(--primary);
         }
+
+        .concept-match-badge {
+          align-self: flex-start;
+          background: var(--primary);
+          color: white;
+          padding: 0.3rem 0.8rem;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 800;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          margin-bottom: 0.5rem;
+          box-shadow: 0 4px 12px rgba(6, 95, 70, 0.2);
+        }
+
+        .res-header-actions {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          margin-bottom: 0.8rem;
+          gap: 1.2rem;
+        }
+
+        .res-actions.mini {
+          display: flex;
+          gap: 0.3rem;
+          margin-top: 0;
+        }
+        
+        .btn-action.mini {
+          flex: none;
+          width: 28px;
+          height: 28px;
+          padding: 0;
+          border-radius: 6px;
+          font-size: 0.9rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          line-height:1;
+        }
+
+        .res-actions {
+          display: flex;
+          gap: 1rem;
+          margin-top: 0.5rem;
+        }
+        .btn-action {
+          flex: 1;
+          padding: 0.8rem;
+          border-radius: 12px;
+          font-weight: 700;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+        }
+        .btn-action.explorer {
+          background: white;
+          border: 1px solid var(--primary);
+          color: var(--primary);
+        }
+        .btn-action.explorer:hover {
+          background: var(--primary);
+          color: white;
+        }
+        .btn-action.maqasid {
+          background: var(--slate-light);
+          border: 1px solid var(--border);
+          color: var(--text-primary);
+        }
+        .btn-action.maqasid:hover {
+          background: var(--border);
+        }
         
         .animate-slide-up {
           animation: slideUp 0.3s ease-out;
@@ -400,6 +508,6 @@ export default function SearchBar() {
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-    </div>
+    </div >
   );
 }

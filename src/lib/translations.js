@@ -17,7 +17,7 @@ export const translations = {
         },
         explorer: {
             title: "Word Essence",
-            desc: "Scholarly Lexicon | 100% Scholarly Coverage (Surahs 1-5).",
+            desc: "Scholarly Lexicon | 100% Scholarly Coverage (Full Quran).",
             surah: "Surah",
             ayah: "Ayah",
             analysis: "Word Analysis",
@@ -67,7 +67,7 @@ export const translations = {
         },
         explorer: {
             title: "جواهر الكلمات",
-            desc: "معجم علمي | تغطية شاملة بنسبة 100% لأول 5 سور.",
+            desc: "معجم علمي | تغطية شاملة بنسبة 100% لكامل القرآن الكريم.",
             surah: "السورة",
             ayah: "الآية",
             analysis: "تحليل الكلمة",

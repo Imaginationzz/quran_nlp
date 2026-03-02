@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { toBuckwalter, fromBuckwalter, SURAH_NAMES } from '@/lib/arabic-utils';
 import { getQuranData } from '@/lib/data-loader';
+import { CONCEPTS } from '@/lib/concepts-data';
 
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
@@ -30,21 +31,65 @@ export async function GET(request) {
                 .trim();
         };
 
+        // 1. Semantic/Concept Search Pre-processing
+        let matchedConcepts = [];
+        if (type === 'semantic') {
+            const qLower = queryRaw.toLowerCase();
+            matchedConcepts = CONCEPTS.filter(c =>
+                c.nameEn.toLowerCase().includes(qLower) ||
+                c.nameAr.includes(queryRaw) ||
+                c.similarWords.some(sw => sw.en.toLowerCase().includes(qLower) || sw.ar.includes(queryRaw))
+            );
+
+            // Add key verses from concepts as high-priority results
+            for (const concept of matchedConcepts) {
+                for (const kv of concept.keyVerses) {
+                    const [sura, aya] = kv.key.split(':');
+                    const words = data.quran[sura]?.[aya];
+                    if (words) {
+                        results.push({
+                            location: kv.key,
+                            word: concept.nameAr,
+                            fullVerse: reconstructVerse(words),
+                            context: `سورة ${SURAH_NAMES[sura]}، آية ${aya} (مفهوم: ${concept.nameAr})`,
+                            isConceptMatch: true,
+                            conceptId: concept.id
+                        });
+                    }
+                }
+            }
+        }
+
+        // 2. Main Search Logic
         if (type === 'root' || type === 'semantic') {
-            const searchVal = queryNormalized;
+            // For semantic, also search for any Arabic terms from matched concepts
+            const searchTerms = [queryNormalized];
+            if (type === 'semantic') {
+                matchedConcepts.forEach(c => {
+                    searchTerms.push(toBuckwalter(c.nameAr, true));
+                    c.similarWords.forEach(sw => searchTerms.push(toBuckwalter(sw.ar, true)));
+                });
+            }
+
             outer: for (const [sura, ayas] of Object.entries(data.quran)) {
                 for (const [aya, words] of Object.entries(ayas)) {
+                    // Skip if already added via concept key verses
+                    if (results.some(r => r.location === `${sura}:${aya}`)) continue;
+
                     const fullVerse = reconstructVerse(words);
 
                     for (const [wordIdx, word] of Object.entries(words)) {
                         const matches = word.segments.some(s =>
-                            (s.features?.ROOT && s.features.ROOT === searchVal) ||
-                            (s.features?.LEM && toBuckwalter(s.features.LEM, true).includes(searchVal))
+                            searchTerms.some(st =>
+                                (s.features?.ROOT && s.features.ROOT === st) ||
+                                (s.features?.LEM && toBuckwalter(s.features.LEM, true).includes(st))
+                            )
                         );
 
                         if (matches) {
                             results.push({
                                 location: `${sura}:${aya}`,
+                                wordIdx: wordIdx,
                                 word: fromBuckwalter(word.segments.map((s) => s.form).join('')),
                                 fullVerse: fullVerse,
                                 context: `سورة ${SURAH_NAMES[sura]}، آية ${aya}`,
@@ -57,43 +102,20 @@ export async function GET(request) {
                     }
                 }
             }
-
-            if (type === 'root' && results.length === 0) {
-                const occurrences = data.roots[queryNormalized];
-                if (occurrences) {
-                    results = occurrences.map((loc) => {
-                        try {
-                            const words = data.quran[loc.sura]?.[loc.aya];
-                            const word = words?.[loc.word];
-                            if (!word) return null;
-
-                            const fullVerse = reconstructVerse(words);
-
-                            return {
-                                location: `${loc.sura}:${loc.aya}`,
-                                word: fromBuckwalter(word.segments.map((s) => s.form).join('')),
-                                fullVerse: fullVerse,
-                                context: `سورة ${SURAH_NAMES[loc.sura]}، آية ${loc.aya}`,
-                                lemma: fromBuckwalter(word.segments.find(s => s.features?.LEM)?.features.LEM || '', false),
-                                root: fromBuckwalter(word.segments.find(s => s.features?.ROOT)?.features.ROOT || '', true),
-                                pos: word.segments.find(s => s.features?.LEM || s.features?.ROOT)?.tag || ''
-                            };
-                        } catch (e) { return null; }
-                    }).filter(r => r !== null).slice(0, limit);
-                }
-            }
         } else {
+            // Keyword search
             outer: for (const [sura, ayas] of Object.entries(data.quran)) {
                 for (const [aya, words] of Object.entries(ayas)) {
                     const fullVerse = reconstructVerse(words);
 
-                    for (const word of Object.values(words)) {
+                    for (const [wordIdx, word] of Object.entries(words)) {
                         const form = word.segments.map((s) => s.form).join('');
                         const formNormalized = toBuckwalter(fromBuckwalter(form), true);
 
                         if (form.includes(queryExact) || formNormalized.includes(queryNormalized)) {
                             results.push({
                                 location: `${sura}:${aya}`,
+                                wordIdx: wordIdx,
                                 word: fromBuckwalter(form),
                                 fullVerse: fullVerse,
                                 context: `سورة ${SURAH_NAMES[sura]}، آية ${aya}`,
@@ -108,7 +130,7 @@ export async function GET(request) {
             }
         }
 
-        // Enrich top 20 results
+        // Enrich top 20 results with translations and tafsir
         const enrichedResults = await Promise.all(results.slice(0, 20).map(async (res) => {
             try {
                 const [sura, aya] = res.location.split(':');
@@ -123,7 +145,6 @@ export async function GET(request) {
                 const rawTafsir = tafsirData.tafsir?.text || '';
                 const cleanTafsir = rawTafsir.replace(/<[^>]*>/g, '').trim();
 
-                // Provide more detailed summary (up to 600 chars)
                 let summary = cleanTafsir;
                 if (summary.length > 600) {
                     summary = summary.substring(0, 600).split(' ').slice(0, -1).join(' ') + '...';

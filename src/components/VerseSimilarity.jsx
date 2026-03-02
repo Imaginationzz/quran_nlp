@@ -1,13 +1,23 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { getDual } from '@/lib/translations';
 import { SURAH_NAMES } from '@/lib/arabic-utils';
 import { getMaqasid } from '@/lib/maqasid-data';
 
-export default function VerseSimilarity() {
-  const [sura, setSura] = useState(1);
+function VerseSimilarityContent() {
+  const searchParams = useSearchParams();
+  const [sura, setSura] = useState(Number(searchParams.get('sura')) || 1);
   const [essence, setEssence] = useState({ essence: "", objectives: [] });
+
+  // Sync with URL params
+  useEffect(() => {
+    const s = Number(searchParams.get('sura'));
+    if (s && searchParams.get('view') === 'maqasid') {
+      setSura(s);
+    }
+  }, [searchParams]);
 
   const fetchSurahInfo = (suraNum) => {
     // Get Essence from local database
@@ -223,5 +233,13 @@ export default function VerseSimilarity() {
         }
       `}</style>
     </div>
+  );
+}
+
+export default function VerseSimilarity() {
+  return (
+    <Suspense fallback={<div className="loader">Loading Essence...</div>}>
+      <VerseSimilarityContent />
+    </Suspense>
   );
 }

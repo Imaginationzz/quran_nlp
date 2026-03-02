@@ -1,16 +1,28 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { getDual } from '@/lib/translations';
 import { SURAH_NAMES } from '@/lib/arabic-utils';
 
-export default function WordExplorer() {
-  const [sura, setSura] = useState(1);
-  const [aya, setAya] = useState(1);
+function WordExplorerContent() {
+  const searchParams = useSearchParams();
+  const [sura, setSura] = useState(Number(searchParams.get('sura')) || 1);
+  const [aya, setAya] = useState(Number(searchParams.get('aya')) || 1);
   const [ayahData, setAyahData] = useState(null);
-  const [selectedWord, setSelectedWord] = useState(null);
+  const [selectedWord, setSelectedWord] = useState(searchParams.get('word') || null);
   const [loading, setLoading] = useState(false);
   const [interlinear, setInterlinear] = useState(true);
+
+  // Sync state with URL params if they change
+  useEffect(() => {
+    const s = Number(searchParams.get('sura'));
+    const a = Number(searchParams.get('aya'));
+    const w = searchParams.get('word');
+    if (s) setSura(s);
+    if (a) setAya(a);
+    if (w) setSelectedWord(w);
+  }, [searchParams]);
 
   useEffect(() => {
     fetchAyah();
@@ -623,6 +635,14 @@ export default function WordExplorer() {
           }
         }
       `}</style>
-    </div >
+    </div>
+  );
+}
+
+export default function WordExplorer() {
+  return (
+    <Suspense fallback={<div className="loader">Loading Explorer...</div>}>
+      <WordExplorerContent />
+    </Suspense>
   );
 }
