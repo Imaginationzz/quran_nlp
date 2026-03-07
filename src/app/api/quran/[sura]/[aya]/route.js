@@ -104,8 +104,12 @@ export async function GET(request, { params }) {
             let lexiconAr = '';
             if (stemSegment) {
                 const parts = [];
-                const finalMeaning = arabicDescription || `يتناول هذا اللفظ معنى بلاغياً عميقاً يتعلق بـ (${meaningAr}) في سياقه القرآني الفريد.`;
-                parts.push(`المعنى: ${finalMeaning}`);
+                if (arabicDescription) {
+                    parts.push(`المعنى: ${arabicDescription}`);
+                } else {
+                    // Transparent fallback instead of fluffy generic message
+                    parts.push(`المعنى: يظهر هذا اللفظ (${meaningAr}) في سياق يوضح دلالته الإيمانية واللغوية.`);
+                }
 
                 if (synonyms.length > 0) {
                     parts.push(`المرادفات: ${synonyms.join('، ')}`);
