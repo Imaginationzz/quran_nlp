@@ -22,7 +22,7 @@ const BUCKWALTER_TO_ARABIC = {
 export function cleanArabic(text) {
     if (!text) return text;
     // Strip Buckwalter artifacts and other non-standard characters sometimes leaked from corpus
-    return text.replace(/[@#_]/g, '');
+    return text.replace(/[@#_\[\]]/g, '');
 }
 
 const ROOT_ALIASES = {
