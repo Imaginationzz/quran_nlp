@@ -37,7 +37,7 @@ async function run() {
     const quranPath = path.join(process.cwd(), 'data/processed/quran-data.json');
     const quranData = JSON.parse(fs.readFileSync(quranPath, 'utf8'));
 
-    const targetSuras = [1, 2, 3, 4, 5, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114];
+    const targetSuras = Array.from({ length: 114 }, (_, i) => i + 1);
     const lemmaFrequencies = {};
 
     for (const sura of targetSuras) {
