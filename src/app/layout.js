@@ -5,8 +5,21 @@ export const viewport = {
 };
 
 export const metadata = {
-    title: "Al-Bayan Quranic Intelligence | بوابة البيان",
-    description: "NLP-powered Quranic vocabulary learning platform with morphological analysis and semantic knowledge graphs.",
+    title: "Al-Bayan: AI Quran Tafseer & Quranic Intelligence | بوابة البيان - تفسير القرآن Tafseer Quran",
+    description: "Al-Bayan is a general purpose, NLP-powered platform for AI Quran Tafseer, vocabulary learning, morphological analysis, and Surah purposes (maqasid / مقاصد السور). Created by Muslim Wings.",
+    keywords: [
+        "تفسير القرآن Tafseer Quran",
+        "AI Quran Tafseer",
+        "General purpose",
+        "maqasid",
+        "مقاصد السور",
+        "muslim wings",
+        "Al-Bayan",
+        "Quranic Intelligence",
+        "Quranic vocabulary",
+        "morphological analysis",
+        "semantic knowledge graphs"
+    ],
     appleWebApp: {
         capable: true,
         statusBarStyle: "default",

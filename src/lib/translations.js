@@ -15,6 +15,15 @@ export const translations = {
                 semantic: "Semantic (AI)"
             }
         },
+        tafsir: {
+            title: "Verse Tafseer & Explanation",
+            desc: "Deep explanation and Tafsir of the selected verse.",
+            loading: "Loading Tafseer...",
+            verseText: "Selected Verse",
+            source: "Source: Tafsir Ibn Kathir",
+            selectPrompt: "Select a Surah and Ayah above in the Word Explorer to load its Tafseer.",
+            error: "Failed to load Tafseer for this verse."
+        },
         explorer: {
             title: "Word Essence",
             desc: "Scholarly Lexicon | 100% Scholarly Coverage (Full Quran).",
@@ -64,6 +73,15 @@ export const translations = {
                 root: "جذر",
                 semantic: "دلالي (AI)"
             }
+        },
+        tafsir: {
+            title: "تفسير الآية والبيان",
+            desc: "التفسير التفصيلي والبيان للآية المختارة.",
+            loading: "جاري تحميل التفسير...",
+            verseText: "الآية الكريمة",
+            source: "المصدر: تفسير ابن كثير",
+            selectPrompt: "اختر السورة والآية من متصفح الكلمات بالأعلى ليظهر تفسيرها هنا.",
+            error: "عذراً، فشل تحميل تفسير هذه الآية."
         },
         explorer: {
             title: "جواهر الكلمات",

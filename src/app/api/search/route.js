@@ -136,7 +136,7 @@ export async function GET(request) {
                 const [sura, aya] = res.location.split(':');
                 const [transRes, tafsirRes] = await Promise.all([
                     fetch(`https://api.quran.com/api/v4/verses/by_key/${sura}:${aya}?translations=131`),
-                    fetch(`https://api.quran.com/api/v3/chapters/${sura}/verses/${aya}/tafsirs/16`)
+                    fetch(`https://api.quran.com/api/v4/tafsirs/16/by_ayah/${sura}:${aya}`)
                 ]);
 
                 const transData = await transRes.json();

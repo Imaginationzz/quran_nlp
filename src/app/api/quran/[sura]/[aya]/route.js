@@ -23,7 +23,7 @@ export async function GET(request, { params }) {
             const wordData = await wordRes.json();
             meanings = wordData.verse?.words || [];
 
-            const tafsirRes = await fetch(`https://api.quran.com/api/v3/chapters/${sura}/verses/${aya}/tafsirs/16`);
+            const tafsirRes = await fetch(`https://api.quran.com/api/v4/tafsirs/16/by_ayah/${sura}:${aya}`);
             const tafsirData = await tafsirRes.json();
             verseTafsir = tafsirData.tafsir?.text || '';
         } catch (e) {

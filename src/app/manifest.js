@@ -1,8 +1,8 @@
 export default function manifest() {
   return {
-    name: "Al-Bayan Quranic Intelligence | بوابة البيان",
+    name: "Al-Bayan: AI Quran Tafseer & Quranic Intelligence | بوابة البيان",
     short_name: "Al-Bayan",
-    description: "NLP-powered Quranic vocabulary learning platform with morphological analysis and semantic knowledge graphs.",
+    description: "Al-Bayan is a general purpose, NLP-powered platform for AI Quran Tafseer, morphological analysis, semantic knowledge graphs, and Surah purposes (maqasid / مقاصد السور). Created by Muslim Wings.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

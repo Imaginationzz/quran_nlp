@@ -173,6 +173,7 @@ a:hover {
   gap: 1rem;
   margin-top: 1rem;
   flex-wrap: wrap;
+  direction: rtl;
   /* Changed to wrap for responsiveness */
 }
 

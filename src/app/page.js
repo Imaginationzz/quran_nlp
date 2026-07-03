@@ -5,7 +5,7 @@ import WordExplorer from '@/components/WordExplorer';
 import ConceptClusters from '@/components/ConceptClusters';
 import VerseSimilarity from '@/components/VerseSimilarity';
 import AdaptiveQuiz from '@/components/AdaptiveQuiz';
-import SearchBar from '@/components/SearchBar';
+import TafsirViewer from '@/components/TafsirViewer';
 import { translations, getDual } from '@/lib/translations';
 
 export default function Home() {
@@ -24,10 +24,10 @@ export default function Home() {
 
             <section id="services" style={{ marginBottom: '4rem' }}>
                 <div className="services-grid nav-portal">
-                    <a href="#search" className="service-card shadow-sm">
-                        <div className="icon">🛰️</div>
-                        <h3>{getDual('search.title')}</h3>
-                        <p>{getDual('search.desc')}</p>
+                    <a href="#tafsir" className="service-card shadow-sm">
+                        <div className="icon">📖</div>
+                        <h3>{getDual('tafsir.title')}</h3>
+                        <p>{getDual('tafsir.desc')}</p>
                     </a>
                     <a href="#explorer" className="service-card shadow-sm">
                         <div className="icon">🧬</div>
@@ -54,8 +54,8 @@ export default function Home() {
 
             <div className="divider"></div>
 
-            <section id="search" style={{ marginBottom: '3.5rem' }}>
-                <SearchBar />
+            <section id="tafsir" style={{ marginBottom: '3.5rem' }}>
+                <TafsirViewer />
             </section>
 
             <section id="explorer" style={{ marginBottom: '3.5rem' }}>
@@ -86,6 +86,9 @@ export default function Home() {
                         Yazid Rahmouni | يزيد رحموني
                     </p>
                     <p style={{ fontSize: '0.85rem', opacity: 0.6, fontWeight: 600 }}>Author & Creator / مؤلف ومطوّر المنصة</p>
+                    <p style={{ fontSize: '0.85rem', opacity: 0.6, fontWeight: 600, marginTop: '0.4rem' }}>
+                        Created by Muslim Wings / تم التطوير بواسطة أجنحة
+                    </p>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>

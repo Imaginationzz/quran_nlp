@@ -25,7 +25,7 @@ export async function GET() {
             const ayahText = verseData.verses?.[0]?.text_uthmani || "";
             if (!ayahText) continue;
 
-            const tafsirRes = await fetch(`https://api.quran.com/api/v3/chapters/${randomSura}/verses/${randomAya}/tafsirs/16`, { next: { revalidate: 3600 } });
+            const tafsirRes = await fetch(`https://api.quran.com/api/v4/tafsirs/16/by_ayah/${randomSura}:${randomAya}`, { next: { revalidate: 3600 } });
             if (!tafsirRes.ok) continue;
 
             const tafsirData = await tafsirRes.json();
@@ -45,7 +45,7 @@ export async function GET() {
                 if (s === randomSura && a === randomAya) continue;
 
                 try {
-                    const dRes = await fetch(`https://api.quran.com/api/v3/chapters/${s}/verses/${a}/tafsirs/16`, { next: { revalidate: 3600 } });
+                    const dRes = await fetch(`https://api.quran.com/api/v4/tafsirs/16/by_ayah/${s}:${a}`, { next: { revalidate: 3600 } });
                     if (!dRes.ok) continue;
                     const dData = await dRes.json();
                     const dText = (dData.tafsir?.text || "").replace(/<[^>]*>/g, '').trim();

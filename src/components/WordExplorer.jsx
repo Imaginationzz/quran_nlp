@@ -1,18 +1,48 @@
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { getDual } from '@/lib/translations';
 import { SURAH_NAMES } from '@/lib/arabic-utils';
 
+const SURAH_AYAH_COUNTS = [
+  0,
+  7, 286, 200, 176, 120, 165, 206, 75, 129, 109,
+  123, 111, 43, 52, 99, 128, 111, 110, 98, 135,
+  112, 78, 118, 64, 77, 227, 93, 88, 69, 60,
+  34, 30, 73, 54, 45, 83, 182, 88, 75, 85,
+  54, 53, 89, 59, 37, 35, 38, 29, 18, 45,
+  60, 49, 62, 55, 78, 96, 29, 22, 24, 13,
+  14, 11, 11, 18, 12, 12, 30, 52, 52, 44,
+  28, 28, 20, 56, 40, 31, 50, 40, 46, 42,
+  29, 26, 36, 25, 22, 17, 19, 26, 30, 22,
+  15, 21, 11, 8, 8, 19, 5, 8, 8, 11,
+  11, 8, 3, 9, 5, 4, 7, 3, 6, 3,
+  6, 3, 5, 6
+];
+
 function WordExplorerContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [sura, setSura] = useState(Number(searchParams.get('sura')) || 1);
   const [aya, setAya] = useState(Number(searchParams.get('aya')) || 1);
   const [ayahData, setAyahData] = useState(null);
   const [selectedWord, setSelectedWord] = useState(searchParams.get('word') || null);
   const [loading, setLoading] = useState(false);
   const [interlinear, setInterlinear] = useState(true);
+
+  // Sync state changes back to URL search params
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const currentSura = Number(params.get('sura')) || 1;
+    const currentAya = Number(params.get('aya')) || 1;
+    if (currentSura !== sura || currentAya !== aya) {
+      params.set('sura', sura);
+      params.set('aya', aya);
+      params.delete('word');
+      router.replace(`/?${params.toString()}`, { scroll: false });
+    }
+  }, [sura, aya, router]);
 
   // Sync state with URL params if they change
   useEffect(() => {
@@ -42,15 +72,38 @@ function WordExplorerContent() {
     }
   };
 
-  const nextAya = () => setAya(prev => prev + 1);
-  const prevAya = () => setAya(prev => Math.max(1, prev - 1));
-  const nextSura = () => {
-    setSura(prev => Math.min(114, prev + 1));
-    setAya(1);
+  const nextAya = () => {
+    const maxAya = SURAH_AYAH_COUNTS[sura];
+    if (aya < maxAya) {
+      setAya(prev => prev + 1);
+    } else if (sura < 114) {
+      setSura(prev => prev + 1);
+      setAya(1);
+    }
   };
+
+  const prevAya = () => {
+    if (aya > 1) {
+      setAya(prev => prev - 1);
+    } else if (sura > 1) {
+      const prevSuraNum = sura - 1;
+      setSura(prevSuraNum);
+      setAya(SURAH_AYAH_COUNTS[prevSuraNum]);
+    }
+  };
+
+  const nextSura = () => {
+    if (sura < 114) {
+      setSura(prev => prev + 1);
+      setAya(1);
+    }
+  };
+
   const prevSura = () => {
-    setSura(prev => Math.max(1, prev - 1));
-    setAya(1);
+    if (sura > 1) {
+      setSura(prev => prev - 1);
+      setAya(1);
+    }
   };
 
   return (
@@ -74,10 +127,20 @@ function WordExplorerContent() {
           <label className="input-label">{getDual('explorer.surah')}:</label>
           <div className="input-group">
             <button onClick={prevSura} className="nav-arrow" disabled={sura <= 1}>❮</button>
-            <div className="input-with-label">
-              <input type="number" min="1" max="114" value={sura} onChange={(e) => setSura(Number(e.target.value))} />
-              <span className="surah-name quranic-text">{SURAH_NAMES[sura]}</span>
-            </div>
+            <select
+              value={sura}
+              onChange={(e) => {
+                setSura(Number(e.target.value));
+                setAya(1);
+              }}
+              className="surah-select-dropdown quranic-text"
+            >
+              {SURAH_NAMES.map((name, idx) => idx > 0 && (
+                <option key={idx} value={idx}>
+                  {idx}. {name}
+                </option>
+              ))}
+            </select>
             <button onClick={nextSura} className="nav-arrow" disabled={sura >= 114}>❯</button>
           </div>
         </div>
@@ -85,9 +148,16 @@ function WordExplorerContent() {
         <div className="control-item">
           <label className="input-label">{getDual('explorer.ayah')}:</label>
           <div className="input-group">
-            <button onClick={prevAya} className="nav-arrow" disabled={aya <= 1}>❮</button>
-            <input type="number" min="1" max="286" value={aya} onChange={(e) => setAya(Number(e.target.value))} className="ayah-input" />
-            <button onClick={nextAya} className="nav-arrow">❯</button>
+            <button onClick={prevAya} className="nav-arrow" disabled={sura <= 1 && aya <= 1}>❮</button>
+            <input 
+              type="number" 
+              min="1" 
+              max={SURAH_AYAH_COUNTS[sura] || 286} 
+              value={aya} 
+              onChange={(e) => setAya(Math.min(SURAH_AYAH_COUNTS[sura], Math.max(1, Number(e.target.value))))} 
+              className="ayah-input" 
+            />
+            <button onClick={nextAya} className="nav-arrow" disabled={sura >= 114 && aya >= SURAH_AYAH_COUNTS[sura]}>❯</button>
           </div>
         </div>
       </div>
@@ -292,6 +362,25 @@ function WordExplorerContent() {
           font-weight: 800 !important;
           color: var(--primary) !important;
           outline: none;
+        }
+        .surah-select-dropdown {
+          border: none;
+          outline: none;
+          background: transparent;
+          color: var(--primary);
+          font-family: var(--font-arabic-modern), sans-serif;
+          font-weight: 800;
+          font-size: 1.2rem;
+          cursor: pointer;
+          padding: 0 0.5rem;
+          min-width: 160px;
+          text-align-last: center;
+        }
+        .surah-select-dropdown option {
+          background: var(--bg-surface);
+          color: var(--text-primary);
+          font-family: var(--font-arabic-modern), sans-serif;
+          font-weight: 600;
         }
         .input-with-label {
           display: flex;
