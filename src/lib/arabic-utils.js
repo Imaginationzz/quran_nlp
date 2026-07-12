@@ -16,13 +16,13 @@ const BUCKWALTER_TO_ARABIC = {
     "'": 'ء', '>': 'أ', '&': 'ؤ', '<': 'إ', '}': 'ئ', '|': 'آ', 'Y': 'ى', 'p': 'ة',
     'a': '\u064E', 'u': '\u064F', 'i': '\u0650', 'o': '\u0652', '~': '\u0651',
     'F': '\u064B', 'N': '\u064C', 'K': '\u064D', '`': '\u0670', '^': '\u0653',
-    '{': 'ا', '@': '', '#': '', '_': '', ':': ''
+    '{': 'ا', '@': '', '#': '', '_': '', ':': '', '.': ''
 };
 
 export function cleanArabic(text) {
     if (!text) return text;
     // Strip Buckwalter artifacts and other non-standard characters sometimes leaked from corpus
-    return text.replace(/[@#_:\[\]]/g, '');
+    return text.replace(/[@#_:\[\]\.]/g, '');
 }
 
 const ROOT_ALIASES = {

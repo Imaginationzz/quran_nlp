@@ -854,5 +854,88 @@ export const CONCEPTS = [
             { ar: "استغفار", en: "Seeking forgiveness" },
             { ar: "ندم", en: "Regret" }
         ]
+    },
+    {
+        id: "heavens",
+        nameEn: "Heavens / Sky",
+        nameAr: "السماء",
+        icon: "🌌",
+        descriptionEn: "The creation and order of the heavens, celestial bodies, and cosmic signs.",
+        descriptionAr: "خلق السماوات وعجائب الكون، والنجوم والمجرات، والآيات الكونية المرفوعة بغير عمد.",
+        keyVerses: [
+            { key: "79:27", text: "أَأَنتُمْ أَشَدُّ خَلْقًا أَمِ السَّمَاءُ ۚ بَنَاهَا" },
+            { key: "21:32", text: "وَجَعَلْنَا السَّمَاءَ سَقْفًا مَّحْفُوظًا ۖ وَهُمْ عَنْ آيَاتِهَا مُعْرِضُونَ" },
+            { key: "50:6", text: "أَفَلَمْ يَنظُرُوا إِلَى السَّمَاءِ فَوْقَهُمْ كَيْفَ بَنَيْنَاهَا وَزَيَّنَّاهَا وَمَا لَهَا مِن فُرُوجٍ" }
+        ],
+        oppositeEn: "Earth",
+        oppositeAr: "الأرض",
+        similarWords: [
+            { ar: "سموات", en: "Heavens" },
+            { ar: "بناء", en: "Canopy" },
+            { ar: "سقف", en: "Roof" },
+            { ar: "بروج", en: "Constellations" }
+        ]
+    },
+    {
+        id: "miracles",
+        nameEn: "Miracles / Inimitability",
+        nameAr: "الإعجاز / البينات",
+        icon: "✨",
+        descriptionEn: "Divine signs, prophetic miracles, and the inimitability of the Quran.",
+        descriptionAr: "البينات والمعجزات المؤيدة للأنبياء، وإعجاز القرآن الكريم ودلالات صدق الوحي.",
+        keyVerses: [
+            { key: "17:88", text: "قُل لَّئِنِ اجْتَمَعَتِ الْإِنسُ وَالْجِنُّ عَلَىٰ أَن يَأْتُوا بِمِثْلِ هَٰذَا الْقُرْآنِ لَا يَأْتُونَ بِمِثْلِهِ" },
+            { key: "2:23", text: "وَإِن كُنتُمْ فِي رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا بِسُورَةٍ مِّن مِّثْلِهِ" },
+            { key: "17:101", text: "وَلَقَدْ آتَيْنَا مُوسَىٰ تِسْعَ آيَاتٍ بَيِّنَاتٍ" }
+        ],
+        oppositeEn: "Normalcy / Illusion",
+        oppositeAr: "مألوف / سحر",
+        similarWords: [
+            { ar: "آية", en: "Sign" },
+            { ar: "بينة", en: "Proof" },
+            { ar: "برهان", en: "Demonstration" },
+            { ar: "سلطان", en: "Clear Authority" }
+        ]
+    },
+  {
+        id: "stories",
+        nameEn: "Stories / Narratives",
+        nameAr: "القصص",
+        icon: "📖",
+        descriptionEn: "Historical accounts of prophets and previous nations loaded with wisdom and admonitions.",
+        descriptionAr: "أخبار الأنبياء والأمم السالفة للعبرة والموعظة وتثبيت فؤاد المؤمنين.",
+        keyVerses: [
+            { key: "12:111", text: "لَقَدْ كَانَ فِي قَصَصِهِمْ عِبْرَةٌ لِّأُولِي الْأَلْبَابِ" },
+            { key: "12:3", text: "نَحْنُ نَقُصُّ عَلَيْكَ أَحْسَنَ الْقَصَصِ بِمَا أَوْحَيْنَا إِلَيْكَ هَٰذَا الْقُرْآنَ" },
+            { key: "7:176", text: "فَاقْصُصِ الْقَصَصَ لَعَلَّهُمْ يَتَفَكَّرُونَ" }
+        ],
+        oppositeEn: "Myths",
+        oppositeAr: "أساطير / خرافات",
+        similarWords: [
+            { ar: "نبأ", en: "News" },
+            { ar: "حديث", en: "Narrative" },
+            { ar: "عبرة", en: "Lesson" },
+            { ar: "خبر", en: "Report" }
+        ]
+    },
+    {
+        id: "qisas",
+        nameEn: "Retribution / Qisas",
+        nameAr: "القصاص",
+        icon: "⚖️",
+        descriptionEn: "The Quranic principle of just retaliation and legal retribution to preserve life and justice.",
+        descriptionAr: "حكم القصاص وتشريع المعاقبة بالمثل صيانةً للدماء وحفظاً للأنفس وإقامةً للعدل.",
+        keyVerses: [
+            { key: "2:179", text: "وَلَكُمْ فِي الْقِصَاصِ حَيَاةٌ يَا أُولِي الْأَلْبَابِ لَعَلَّكُمْ تَتَّقُونَ" },
+            { key: "2:178", text: "يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الْقِصَاصُ فِي الْقَتْلَى" },
+            { key: "5:45", text: "وَكَتَبْنَا عَلَيْهِمْ فِيهَا أَنَّ النَّفْسَ بِالنَّفْسِ وَالْعَيْنَ بِالْعَيْنِ وَالأَنفَ بِالأَنفِ وَالأُذُنَ بِالأُذُنِ وَالسِّنَّ بِالسِّنِّ وَالْجُرُوحَ قِصَاصٌ" }
+        ],
+        oppositeEn: "Forgiveness / Transgression",
+        oppositeAr: "العفو / البغي",
+        similarWords: [
+            { ar: "قصاص", en: "Just retaliation" },
+            { ar: "حياة", en: "Life preservation" },
+            { ar: "عدل", en: "Justice" }
+        ]
     }
 ];

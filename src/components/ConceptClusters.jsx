@@ -73,10 +73,13 @@ function ConceptClustersContent() {
           text: r.fullVerse
         }));
 
-        // Merge with static key verses to prevent duplicates and keep key verses first
-        const merged = [...selectedConcept.keyVerses];
+        // Merge with static key verses to prevent duplicates, keep key verses first, and update to full verse texts
+        const merged = selectedConcept.keyVerses.map(kv => ({ ...kv }));
         dynamicList.forEach((item) => {
-          if (!merged.some((m) => m.key === item.key)) {
+          const existing = merged.find((m) => m.key === item.key);
+          if (existing) {
+            existing.text = item.text;
+          } else {
             merged.push(item);
           }
         });
@@ -498,7 +501,7 @@ function ConceptClustersContent() {
               <span className="suggested-title">موضوعات مقترحة / Suggested Concepts:</span>
               <div className="suggested-badges-grid">
                 {CONCEPTS.filter((c) =>
-                  ['paradise', 'jihad', 'hypocrisy', 'spending', 'sadaqah', 'piety', 'repentance', 'hereafter', 'prayer', 'marriage', 'economy', 'politics'].includes(c.id)
+                  ['paradise', 'jihad', 'hypocrisy', 'spending', 'sadaqah', 'piety', 'repentance', 'hereafter', 'prayer', 'marriage', 'economy', 'politics', 'knowledge', 'heavens', 'miracles', 'stories', 'qisas'].includes(c.id)
                 ).map((c) => (
                   <button
                     key={c.id}

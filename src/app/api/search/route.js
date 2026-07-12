@@ -140,6 +140,22 @@ function validateSemanticMatch(word, queryRaw, location) {
         }
     }
 
+    // 8. Collision for root 'qSS' (ق ص ص)
+    // Root qSS covers both 'qaSaS' (stories/narrate) AND 'qiSaAS' (retribution/just retaliation).
+    // - When query is Stories / القصص, exclude 'qiSaAS' lemma.
+    // - When query is Retribution / القصاص, exclude 'qaSaS' and 'qaS~a' lemmas.
+    const isStoriesQuery = query.includes('القصص') || queryLower.includes('stori') || queryLower.includes('narrative');
+    const isQisasQuery = query.includes('القصاص') || queryLower.includes('qisas') || queryLower.includes('retribut');
+
+    if (rootVal === 'qSS') {
+        if (isStoriesQuery && lemVal === 'qiSaAS') {
+            return false;
+        }
+        if (isQisasQuery && (lemVal === 'qaSaS' || lemVal === 'qaS~a')) {
+            return false;
+        }
+    }
+
     return true;
 }
 
