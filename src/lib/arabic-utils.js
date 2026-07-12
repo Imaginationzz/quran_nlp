@@ -1,8 +1,8 @@
 const ARABIC_TO_BUCKWALTER = {
     'ا': 'A', 'ب': 'b', 'ت': 't', 'ث': 'v', 'ج': 'j', 'ح': 'H', 'خ': 'x',
     'د': 'd', 'ذ': '*', 'ر': 'r', 'ز': 'z', 'س': 's', 'ش': '$', 'ص': 'S',
-    'ض': 'D', 'ط': 'T', 'ظ': 'Z', 'ع': 'E', 'غ': 'g', 'ف': 'f', 'q': 'q',
-    'ك': 'k', 'ل': 'l', 'م': 'm', 'ن': 'n', 'h': 'h', 'و': 'w', 'ي': 'y',
+    'ض': 'D', 'ط': 'T', 'ظ': 'Z', 'ع': 'E', 'غ': 'g', 'ف': 'f', 'ق': 'q',
+    'ك': 'k', 'ل': 'l', 'م': 'm', 'ن': 'n', 'ه': 'h', 'و': 'w', 'ي': 'y',
     'ء': "'", 'أ': '>', 'ؤ': '&', 'إ': '<', 'ئ': '}', 'آ': '|', 'ى': 'Y', 'ة': 'p',
     '\u064E': 'a', '\u064F': 'u', '\u0650': 'i', '\u0652': 'o', '\u0651': '~',
     '\u064B': 'F', '\u064C': 'N', '\u064D': 'K', '\u0670': '`', '\u0653': '^'
@@ -16,13 +16,13 @@ const BUCKWALTER_TO_ARABIC = {
     "'": 'ء', '>': 'أ', '&': 'ؤ', '<': 'إ', '}': 'ئ', '|': 'آ', 'Y': 'ى', 'p': 'ة',
     'a': '\u064E', 'u': '\u064F', 'i': '\u0650', 'o': '\u0652', '~': '\u0651',
     'F': '\u064B', 'N': '\u064C', 'K': '\u064D', '`': '\u0670', '^': '\u0653',
-    '{': 'ا', '@': '', '#': '', '_': ''
+    '{': 'ا', '@': '', '#': '', '_': '', ':': ''
 };
 
 export function cleanArabic(text) {
     if (!text) return text;
     // Strip Buckwalter artifacts and other non-standard characters sometimes leaked from corpus
-    return text.replace(/[@#_\[\]]/g, '');
+    return text.replace(/[@#_:\[\]]/g, '');
 }
 
 const ROOT_ALIASES = {
@@ -150,5 +150,5 @@ export function fromBuckwalter(text, isRoot = false) {
     if (isRoot && ROOT_ALIASES[text]) {
         processed = ROOT_ALIASES[text];
     }
-    return processed.split('').map(char => BUCKWALTER_TO_ARABIC[char] || char).join('');
+    return processed.split('').map(char => BUCKWALTER_TO_ARABIC[char] !== undefined ? BUCKWALTER_TO_ARABIC[char] : char).join('');
 }

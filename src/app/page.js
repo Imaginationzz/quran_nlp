@@ -4,7 +4,7 @@ import React from 'react';
 import WordExplorer from '@/components/WordExplorer';
 import ConceptClusters from '@/components/ConceptClusters';
 import VerseSimilarity from '@/components/VerseSimilarity';
-import AdaptiveQuiz from '@/components/AdaptiveQuiz';
+import TajwidRules from '@/components/TajwidRules';
 import TafsirViewer from '@/components/TafsirViewer';
 import { translations, getDual } from '@/lib/translations';
 
@@ -41,8 +41,8 @@ export default function Home() {
                     </a>
                     <a href="#quiz" className="service-card shadow-sm">
                         <div className="icon">💡</div>
-                        <h3>{getDual('quiz.title')}</h3>
-                        <p>{getDual('quiz.desc')}</p>
+                        <h3>{getDual('tajwid.title')}</h3>
+                        <p>{getDual('tajwid.desc')}</p>
                     </a>
                     <a href="#concept-clusters" className="service-card shadow-sm">
                         <div className="icon">🔗</div>
@@ -67,7 +67,7 @@ export default function Home() {
             </section>
 
             <section id="quiz" style={{ marginBottom: '3.5rem' }}>
-                <AdaptiveQuiz />
+                <TajwidRules />
             </section>
 
             <section id="concept-clusters" style={{ marginBottom: '3.5rem' }}>

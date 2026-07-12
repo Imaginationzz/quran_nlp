@@ -42,15 +42,15 @@ export const translations = {
             score: "Semantic Similarity Score",
             loading: "Calculating Similarity..."
         },
-        quiz: {
-            title: "Context Master",
-            desc: "Context Challenges & Tafsir Insights.",
-            score: "Score",
-            location: "Verse Location",
-            nextWord: "Next Word",
+        tajwid: {
+            title: "Tajwid Master / قواعد التجويد",
+            desc: "Interactive Guide & Practical Practice on Quranic Tajwid Rules.",
+            rulesTitle: "Tajwid Rules Categories",
+            examplesTitle: "Quranic Examples",
+            testTitle: "Tajwid Challenge",
             correct: "✨ Correct! Mashallah.",
-            wrong: "Oops! The correct root was: ",
-            loading: "Preparing next question..."
+            wrong: "Incorrect! The correct rule was: ",
+            loading: "Loading next practice question..."
         },
         concepts: {
             title: "Concept Clusters",
@@ -101,15 +101,15 @@ export const translations = {
             score: "درجة التشابه الدلالي",
             loading: "جاري حساب التشابه..."
         },
-        quiz: {
-            title: "مشكاة الفهم",
-            desc: "تحديات السياق وإتقان استنباط الحِكم والتفاسير.",
-            score: "النتيجة",
-            location: "موقع الآية",
-            nextWord: "الكلمة التالية",
+        tajwid: {
+            title: "منهاج التجويد",
+            desc: "دليل تفاعلي وتطبيق عملي لقواعد تلاوة القرآن الكريم وتجويده.",
+            rulesTitle: "أحكام التجويد الكبرى",
+            examplesTitle: "شواهد من التنزيل",
+            testTitle: "مختبر التجويد",
             correct: "✨ صحيح! ما شاء الله.",
-            wrong: "عذراً! الجذر الصحيح هو: ",
-            loading: "جاري تحضير السؤال..."
+            wrong: "عذراً! الحكم الصحيح هو: ",
+            loading: "جاري تحميل السؤال التالي..."
         },
         concepts: {
             title: "نسيج الهداية",

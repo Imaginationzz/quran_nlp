@@ -65,7 +65,7 @@ export const CONCEPTS = [
     {
         id: "hypocrisy",
         nameEn: "Hypocrisy",
-        nameAr: "نفاق",
+        nameAr: "النفاق",
         icon: "🌑",
         descriptionEn: "The manifestation of faith while concealing disbelief or malice.",
         descriptionAr: "إظهار الإيمان وإبطان الكفر أو السوء.",
@@ -440,15 +440,13 @@ export const CONCEPTS = [
         oppositeAr: "تحريف / هجر",
         similarWords: [
             { ar: "فرقان", en: "Criterion" },
-            { ar: "ذكر", en: "Reminder" },
-            { ar: "كتاب", en: "Book" },
-            { ar: "نور", en: "Light" }
+            { ar: "كتاب", en: "Book" }
         ]
     },
     {
         id: "prayer",
         nameEn: "Prayer",
-        nameAr: "صلاة",
+        nameAr: "الصلاة",
         icon: "🧎",
         descriptionEn: "The spiritual pillar of Islam and direct communication with Allah.",
         descriptionAr: "عماد الدين وصلة العبد بربه.",
@@ -468,7 +466,7 @@ export const CONCEPTS = [
     {
         id: "charity",
         nameEn: "Charity",
-        nameAr: "زكاة",
+        nameAr: "الزكاة",
         icon: "🪙",
         descriptionEn: "The mandatory/voluntary act of purifying wealth through giving.",
         descriptionAr: "تطهير المال بمواساة الفقراء.",
@@ -645,6 +643,216 @@ export const CONCEPTS = [
             { ar: "سلطان", en: "Authority" },
             { ar: "مالك", en: "Owner" },
             { ar: "مليك", en: "Powerful King" }
+        ]
+    },
+    {
+        id: "marriage",
+        nameEn: "Marriage",
+        nameAr: "الزواج",
+        icon: "💍",
+        descriptionEn: "The sacred bond and covenant of marriage established by Allah for peace, affection, and mercy.",
+        descriptionAr: "الميثاق الغليظ والرباط المقدس الذي شرعه الله للسكن والمودة والرحمة بين الزوجين.",
+        keyVerses: [
+            { key: "30:21", text: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً" },
+            { key: "24:32", text: "وَأَنكِحُوا الْأَيَامَىٰ مِنكُمْ وَالصَّالِحِينَ مِنْ عِبَادِكُمْ وَإِمَائِكُمْ ۚ إِن يَكُونُوا فُقَرَاءَ يُغْنِهِمُ اللَّهُ مِن فَضْلِهِ" },
+            { key: "4:21", text: "وَكَيْفَ تَأْخُذُونَهُ وَقَدْ أَفْضَىٰ بَعْضُكُمْ إِلَىٰ بَعْضٍ وَأَخَذْنَ مِنْكُمْ مِيثَاقًا غَلِيظًا" }
+        ],
+        oppositeEn: "Celibacy / Divorce / Adultery",
+        oppositeAr: "عزوبة / طلاق / زنا",
+        similarWords: [
+            { ar: "نكاح", en: "Wedlock" },
+            { ar: "ميثاق", en: "Covenant" },
+            { ar: "سكن", en: "Tranquility" },
+            { ar: "مودة", en: "Affection" }
+        ]
+    },
+    {
+        id: "spending",
+        nameEn: "Spending",
+        nameAr: "الانفاق",
+        icon: "💸",
+        descriptionEn: "Spending wealth in the way of Allah for the welfare of the family and community.",
+        descriptionAr: "بذل المال في سبيل الله ووجوه الخير رغبةً في الأجر ومساعدة المحتاجين.",
+        keyVerses: [
+            { key: "2:261", text: "مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ" },
+            { key: "3:92", text: "لَن تَنَالُوا الْبِرَّ حَتَّىٰ تُنفِقُوا مِمَّا تُحِبُّونَ ۚ وَمَا تُنفِقُوا مِن شَيْءٍ فَإِنَّ اللَّهَ بِهِ عَلِيمٌ" },
+            { key: "2:215", text: "يَسْأَلُونَكَ مَاذَا يُنْفِقُونَ ۖ قُلْ مَا أَنْفَقْتُمْ مِنْ خَيْرٍ فَلِلْوَالِدَيْنِ وَالْأَقْرَبِينَ وَالْيَتَامَىٰ وَالْمَسَاكِينِ وَابْنِ السَّبِيلِ" }
+        ],
+        oppositeEn: "Stinginess / Hoarding",
+        oppositeAr: "بخل / كنز / تقتير",
+        similarWords: [
+            { ar: "بذل", en: "Giving" },
+            { ar: "عطاء", en: "Bestowal" },
+            { ar: "جود", en: "Generosity" },
+            { ar: "سخاء", en: "Liberality" }
+        ]
+    },
+    {
+        id: "sadaqah",
+        nameEn: "Charity / Almsgiving",
+        nameAr: "الصدقات",
+        icon: "🤝",
+        descriptionEn: "Voluntary and sincere charity given to please Allah and cleanse the soul and wealth.",
+        descriptionAr: "الصدقات التطوعية وأعمال الخير لمساعدة الفقراء وتطهير النفوس.",
+        keyVerses: [
+            { key: "2:271", text: "إِن تُبْدُوا الصَّدَقَاتِ فَنِعِمَّا هِيَ ۖ وَإِن تُخْفُوهَا وَتُؤْتُوهَا الْفُقَرَاءَ فَهُوَ خَيْرٌ لَّكُمْ" },
+            { key: "9:60", text: "إِنَّمَا الصَّدَقَاتُ لِلْفُقَرَاءِ وَالْمَسَاكِينِ وَالْعَامِلِينَ عَلَيْهَا وَالْمُؤَلَّفَةِ قُلُوبُهُمْ" },
+            { key: "2:264", text: "يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تُبْطِلُوا صَدَقَاتِكُم بِالْمَنِّ وَالْأَذَىٰ" }
+        ],
+        oppositeEn: "Usury / Harmful giving",
+        oppositeAr: "ربا / منّ وأذى",
+        similarWords: [
+            { ar: "صدقة", en: "Sadaqah" },
+            { ar: "إحسان", en: "Benevolence" },
+            { ar: "معروف", en: "Kindness" },
+            { ar: "صلة", en: "Connection" }
+        ]
+    },
+    {
+        id: "jihad",
+        nameEn: "Jihad / Striving",
+        nameAr: "الجهاد",
+        icon: "🛡️",
+        descriptionEn: "Striving and exerting utmost effort in the path of Allah with wealth, tongue, and soul.",
+        descriptionAr: "بذل الجهد والطاقة في سبيل الله بالمال والنفس واللسان لإعلاء كلمة الله.",
+        keyVerses: [
+            { key: "22:78", text: "وَجَاهِدُوا فِي اللَّهِ حَقَّ جِهَادِهِ ۚ هُوَ اجْتَبَاكُمْ" },
+            { key: "9:41", text: "انفِرُوا خِفَافًا وَثِقَالًا وَجَاهِدُوا بِأَمْوَالِكُمْ وَأَنفُسِكُمْ فِي سَبِيلِ اللَّهِ" },
+            { key: "29:69", text: "وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا ۚ وَإِنَّ اللَّهَ لَمَعَ الْمُحْسِنِينَ" }
+        ],
+        oppositeEn: "Inactivity / Laziness / Pacifism",
+        oppositeAr: "قعود / تقاعس / خذلان",
+        similarWords: [
+            { ar: "جهد", en: "Effort" },
+            { ar: "كفاح", en: "Struggle" },
+            { ar: "نفير", en: "Mobilization" },
+            { ar: "قتال", en: "Fighting" }
+        ]
+    },
+    {
+        id: "trade",
+        nameEn: "Trade / Commerce",
+        nameAr: "التجارة",
+        icon: "⚖️",
+        descriptionEn: "Lawful business transactions and trade based on mutual consent, honesty, and justice.",
+        descriptionAr: "المعاملات التجارية المشروعة والبيع القائم على التراضي والصدق والأمانة.",
+        keyVerses: [
+            { key: "4:29", text: "يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ" },
+            { key: "2:275", text: "وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا" },
+            { key: "24:37", text: "رِجَالٌ لَّا تُلْهِيهِمْ تِجَارَةٌ وَلَا بَيْعٌ عَن ذِكْرِ اللَّهِ وَإِقَامِ الصَّلَاةِ" }
+        ],
+        oppositeEn: "Usury / Monopoly / Fraud",
+        oppositeAr: "ربا / احتكار / غش / تطفيف",
+        similarWords: [
+            { ar: "بيع", en: "Selling" },
+            { ar: "شراء", en: "Buying" },
+            { ar: "تراض", en: "Consent" },
+            { ar: "ربح", en: "Profit" }
+        ]
+    },
+    {
+        id: "economy",
+        nameEn: "Economy / Wealth Management",
+        nameAr: "الاقتصاد",
+        icon: "📈",
+        descriptionEn: "Moderation in consumption, fair distribution of wealth, and prohibition of exploitation.",
+        descriptionAr: "الاعتدال في المعيشة، وحفظ المال، وعدم الإسراف أو التقتير، وتجنب أكل أموال الناس بالباطل.",
+        keyVerses: [
+            { key: "17:29", text: "وَلَا تَجْعَلْ يَدَكَ مَغْلُولَةً إِلَىٰ عُنُقِكَ وَلَا تَبْسُطْهَا كُلَّ الْبَسْطِ فَتَقْعُدَ مَلُومًا مَّحْسُورًا" },
+            { key: "25:67", text: "وَالَّذِينَ إِذَا أَنفَقُوا لَمْ يُسْرِفُوا وَلَمْ يَقْتُرُوا وَكَانَ بَيْنَ ذَٰلِكَ قَوَامًا" },
+            { key: "59:7", text: "كَيْ لَا يَكُونَ دُولَةً بَيْنَ الْأَغْنِيَاءِ مِنكُمْ" }
+        ],
+        oppositeEn: "Extravagance / Destitution / Exploitation",
+        oppositeAr: "إسراف / تبذير / شح / فقر",
+        similarWords: [
+            { ar: "قصد", en: "Moderation" },
+            { ar: "قوام", en: "Balance" },
+            { ar: "عدل", en: "Equity" },
+            { ar: "ادخار", en: "Saving" }
+        ]
+    },
+    {
+        id: "politics",
+        nameEn: "Politics / Governance",
+        nameAr: "السياسة",
+        icon: "🏛️",
+        descriptionEn: "Justice in governance, consultation (Shura), fulfillment of trusts, and rule of law.",
+        descriptionAr: "العدل في الحكم والسياسة، والشورى، وأداء الأمانات، ورعاية مصالح الرعية بالحق.",
+        keyVerses: [
+            { key: "4:58", text: "إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا وَإِذَا حَكَمْتُم بَيْنَ النَّاسِ أَن تَحْكُمُوا بِالْعَدْلِ" },
+            { key: "42:38", text: "وَأَمْرُهُمْ شُورَىٰ بَيْنَهُمْ وَمِمَّا رَزَقْنَاهُمْ يُنفِقُونَ" },
+            { key: "3:159", text: "وَشَاوِرْهُمْ فِي الْأَمْرِ ۖ فَإِذَا عَزَمْتَ فَتَوَكَّلْ عَلَى اللَّهِ" }
+        ],
+        oppositeEn: "Tyranny / Corruption / Anarchy",
+        oppositeAr: "استبداد / ظلم / فساد / فوضى",
+        similarWords: [
+            { ar: "حكم", en: "Rulership" },
+            { ar: "شورى", en: "Consultation" },
+            { ar: "عدل", en: "Justice" },
+            { ar: "أمانة", en: "Trust" }
+        ]
+    },
+    {
+        id: "paradise",
+        nameEn: "Paradise",
+        nameAr: "الجنة",
+        icon: "🌸",
+        descriptionEn: "The eternal abode of peace, joy, and divine reward for the righteous.",
+        descriptionAr: "دار النعيم المقيم والرضوان الإلهي التي أعدها الله لعباده المتقين الصالحين.",
+        keyVerses: [
+            { key: "2:82", text: "وَالَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ أُولَٰئِكَ أَصْحَابُ الْجَنَّةِ ۖ هُمْ فِيهَا خَالِدُونَ" },
+            { key: "3:133", text: "وَسَارِعُوا إِلَىٰ مَغْفِرَةٍ مِّن رَّبِّكُمْ وَجَنَّةٍ عَرْضُهَا السَّمَاوَاتُ وَالْأَرْضُ أُعِدَّتْ لِلْمُتَّقِينَ" },
+            { key: "13:23", text: "جَنَّاتُ عَدْنٍ يَدْخُلُونَهَا وَمَن صَلَحَ مِنْ آبَائِهِمْ وَأَزْوَاجِهِمْ وَذُرِّيَّاتِهِمْ" }
+        ],
+        oppositeEn: "Hellfire",
+        oppositeAr: "النار / جهنم",
+        similarWords: [
+            { ar: "نعيم", en: "Bliss" },
+            { ar: "فردوس", en: "Firdous" },
+            { ar: "خلد", en: "Eternity" },
+            { ar: "دار السلام", en: "Abode of Peace" }
+        ]
+    },
+    {
+        id: "hell",
+        nameEn: "Hellfire",
+        nameAr: "النار",
+        icon: "🔥",
+        descriptionEn: "The place of ultimate punishment and purification for disbelief and corruption.",
+        descriptionAr: "دار العقاب والوعيد التي أعدها الله للظالمين والمعاندين جزاءً وفاقاً.",
+        keyVerses: [
+            { key: "2:24", text: "فَاتَّقُوا النَّارَ الَّتِي وَقُودُهَا النَّاسُ وَالْحِجَارَةُ ۖ أُعِدَّتْ لِلْكَافِرِينَ" },
+            { key: "25:11", text: "بَلْ كَذَّبُوا بِالسَّاعَةِ ۖ وَأَعْتَدْنَا لِمَن كَذَّبَ بِالسَّاعَةِ سَعِيرًا" },
+            { key: "9:63", text: "أَلَمْ يَعْلَمُوا أَنَّهُ مَن يُحَادِدِ اللَّهَ وَرَسُولَهُ فَأَنَّ لَهُ نَارَ جَهَنَّمَ خَالِدًا فِيهَا" }
+        ],
+        oppositeEn: "Paradise",
+        oppositeAr: "الجنة",
+        similarWords: [
+            { ar: "جهنم", en: "Gehenna" },
+            { ar: "سعير", en: "Blaze" },
+            { ar: "جحيم", en: "Abyss" },
+            { ar: "سقر", en: "Hell-Fire" }
+        ]
+    },
+    {
+        id: "repentance",
+        nameEn: "Repentance",
+        nameAr: "التوبة",
+        icon: "🤲",
+        descriptionEn: "Returning to Allah in sincerity, seeking forgiveness, and correcting one's path.",
+        descriptionAr: "الرجوع إلى الله بالندم والاستغفار والعزم الصادق على سلوك طريق الطاعة.",
+        keyVerses: [
+            { key: "66:8", text: "يَا أَيُّهَا الَّذِينَ آمَنُوا تُوبُوا إِلَى اللَّهِ تَوْبَةً نَّصُوحًا عَسَىٰ رَبُّكُمْ أَن يُكَفِّرَ عَنكُمْ سَيِّئَاتِكُمْ" },
+            { key: "2:222", text: "إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ" },
+            { key: "11:3", text: "وَأَنِ اسْتَغْفِرُوا رَبَّكُمْ ثُمَّ تُوبُوا إِلَيْهِ يُمَتِّعْكُم مَّتَاعًا حَسَنًا" }
+        ],
+        oppositeEn: "Persistence in Sin",
+        oppositeAr: "الإصرار على الذنب / طغيان",
+        similarWords: [
+            { ar: "إنابة", en: "Turning back" },
+            { ar: "أوب", en: "Returning" },
+            { ar: "استغفار", en: "Seeking forgiveness" },
+            { ar: "ندم", en: "Regret" }
         ]
     }
 ];
