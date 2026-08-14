@@ -48,6 +48,9 @@ export default function SearchBar() {
             onChange={e => setQuery(e.target.value)}
             placeholder={`${getDual('search.placeholder')} ${getDual('search.modes.' + type)}...`}
             className="search-input"
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck="false"
           />
           {(query || results.length > 0) && (
             <button type="button" onClick={handleClear} className="btn-clear" title="Clear Search">

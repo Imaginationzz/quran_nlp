@@ -130,6 +130,9 @@ export default function SemanticMap() {
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="search-input"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            spellCheck="false"
                         />
                     </div>
                     <div className="sura-selector">

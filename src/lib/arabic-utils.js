@@ -139,6 +139,15 @@ export function toBuckwalter(text, normalize = false) {
     return processed.split('').map(char => ARABIC_TO_BUCKWALTER[char] || char).join('');
 }
 
+export function normalizeArabic(text) {
+    if (!text) return '';
+    return text
+        .replace(/[\u064B-\u0652\u0670\u0653\u0640]/g, '') // Tashkeel, dagger alef, madda, tatweel
+        .replace(/[إأآٱ]/g, 'ا') // Alef normalization
+        .replace(/ى/g, 'ي') // Alef maqsura to Yaa
+        .replace(/ة/g, 'ه'); // Taa marbuta to Haa
+}
+
 /**
  * Converts Buckwalter transliteration back to Arabic script.
  * @param {string} text Buckwalter text
@@ -152,3 +161,4 @@ export function fromBuckwalter(text, isRoot = false) {
     }
     return processed.split('').map(char => BUCKWALTER_TO_ARABIC[char] !== undefined ? BUCKWALTER_TO_ARABIC[char] : char).join('');
 }
+

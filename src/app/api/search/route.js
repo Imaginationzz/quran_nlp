@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { toBuckwalter, fromBuckwalter, cleanArabic, SURAH_NAMES } from '@/lib/arabic-utils';
+import { toBuckwalter, fromBuckwalter, cleanArabic, normalizeArabic, SURAH_NAMES } from '@/lib/arabic-utils';
 import { getQuranData } from '@/lib/data-loader';
 import { CONCEPTS } from '@/lib/concepts-data';
 
@@ -13,10 +13,7 @@ function validateSemanticMatch(word, queryRaw, location) {
     const rootVal = rootSeg ? rootSeg.features.ROOT : '';
     const lemVal = lemSeg ? lemSeg.features.LEM : '';
 
-    // 1. Collision for root 's k n' (س ك ن)
-    // If the query is related to Marriage (الزواج / marriage):
-    // The only spouse/couple-related 'skn' verses are 30:21, 7:189, 2:35, 7:19.
-    // Rest of 'skn' verses are about night rest, houses, general tranquility, or poverty.
+    // 1. Collision for root 's k n' (س ك ن) and 'z w j' (ز و ج)
     const isMarriageQuery = query.includes('زواج') || queryLower.includes('marriage');
     if (isMarriageQuery && rootVal === 'skn') {
         const allowedLocations = ['30:21', '7:189', '2:35', '7:19'];
@@ -24,22 +21,46 @@ function validateSemanticMatch(word, queryRaw, location) {
             return false;
         }
     }
+    // When query is Marriage / الزواج, exclude root 'z w j' (ز و ج) verses where 'azwaj' or 'zawjayn' means pairs/species of animals, plants, fruits, or categories
+    if (isMarriageQuery && rootVal === 'zwj') {
+        const nonMarriageZwjLocations = [
+            '6:143',  // ثمانية أزواج من الضأن اثنين ومن المعز اثنين (cattle pairs)
+            '39:6',   // وأنزل لكم من الأنعام ثمانية أزواج (cattle pairs)
+            '11:40',  // احمل فيها من كل زوجين اثنين (Noah's ark animal pairs)
+            '23:27',  // فاسلك فيها من كل زوجين اثنين (Noah's ark animal pairs)
+            '13:3',   // ومن كل الثمرات جعل فيها زوجين اثنين (fruit pairs)
+            '55:52',  // فيهما من كل فاكهة زوجان (fruit pairs in Paradise)
+            '20:53',  // فأخرجنا به أزواجا من نبات شتى (diverse plant species)
+            '22:5',   // وأنبتت من كل زوج بهيج (kinds of vegetation)
+            '26:7',   // كم أنبتنا فيها من كل زوج كريم (kinds of vegetation)
+            '31:10',  // فأنبتنا فيها من كل زوج كريم (kinds of vegetation)
+            '50:7',   // وأنبتنا فيها من كل زوج بهيج (kinds of vegetation)
+            '15:88',  // ما متعنا به أزواجا منهم (categories of disbelievers)
+            '20:131', // ما متعنا به أزواجا منهم (categories of disbelievers)
+            '37:22',  // احشروا الذين ظلموا وأزواجهم (peers/counterparts in wrongdoing)
+            '38:58',  // وآخر من شكله أزواج (types of punishment)
+            '51:49',  // ومن كل شيء خلقنا زوجين (cosmic duality/pairs)
+            '56:7',   // وكنتم أزواجا ثلاثة (three categories of people on Judgment Day)
+            '81:7',   // وإذا النفوس زوجت (pairing of souls with deeds)
+            '36:36',  // خلق الأزواج كلها مما تنبت الأرض (botanical and cosmic pairs)
+            '43:12',  // خلق الأزواج كلها (all pairs of creation)
+        ];
+        if (nonMarriageZwjLocations.includes(location)) {
+            return false;
+        }
+    }
 
     // 2. Collision for root 'n f q' (ن ف ق)
-    // IMPORTANT: Must distinguish الانفاق (spending) vs النفاق (hypocrisy).
-    // Use exact word matching to avoid substring collision (الانفاق contains نفاق).
     const isSpendingQuery = query === 'الانفاق' || query === 'إنفاق' || queryLower === 'spending' || queryLower.includes('charity');
     const isHypocrisyQuery = query === 'النفاق' || queryLower === 'hypocrisy';
 
     if (rootVal === 'nfq') {
         if (isSpendingQuery) {
-            // Exclude hypocrisy-related lemmas from spending results
             if (lemVal === 'naAfaqu' || lemVal === 'muna`fiquwn' || lemVal === 'muna`fiqa`t' || lemVal === 'nifaAq') {
                 return false;
             }
         }
         if (isHypocrisyQuery) {
-            // Exclude spending-related lemmas from hypocrisy results
             if (
                 lemVal === '>anfaqa' ||
                 lemVal === '<infaAq' ||
@@ -52,8 +73,6 @@ function validateSemanticMatch(word, queryRaw, location) {
     }
 
     // 3. Collision for root 'fSl' (ف ص ل)
-    // If the query is related to Wisdom (حكمة / wisdom):
-    // Exclude lemmas: fiSaAl (weaning), faSiylat (family), faSala (depart/set out)
     const isWisdomQuery = query.includes('حكمة') || queryLower.includes('wisdom');
     if (isWisdomQuery && rootVal === 'fSl') {
         if (lemVal === 'fiSaAl' || lemVal === 'faSiylat' || lemVal === 'faSala') {
@@ -62,16 +81,12 @@ function validateSemanticMatch(word, queryRaw, location) {
     }
 
     // 4. Collision for root 'jwd' (ج و د)
-    // Root jwd covers both 'generosity/giving' AND 'jiyaAd' (racehorses, Surah Sad 38:31).
-    // When query is Spending / الانفاق, exclude the horse-related lemma.
     if (isSpendingQuery && rootVal === 'jwd') {
         if (lemVal === 'jiyaAd') {
             return false;
         }
     }
     // 5. Collision for root 'nSr' (ن ص ر)
-    // Root nSr covers 'victory/support' AND 'naSoraAniy~' (Christians/Nazarenes).
-    // When query is Success / فلاح, exclude the Christians lemma.
     const isSuccessQuery = query.includes('فلاح') || queryLower.includes('success');
     if (isSuccessQuery && rootVal === 'nSr') {
         if (lemVal === 'naSoraAniy~') {
@@ -79,8 +94,6 @@ function validateSemanticMatch(word, queryRaw, location) {
         }
     }
     // 6. Collision for root 'Edl' (ع د ل)
-    // Root Edl covers 'justice/equity' AND 'ransom/compensation' (Day of Judgment).
-    // When query is Politics / السياسة, exclude Day-of-Judgment ransom verses.
     const isPoliticsQuery = query.includes('السياسة') || queryLower.includes('politic');
     if (isPoliticsQuery && rootVal === 'Edl') {
         const ransomVerses = ['2:48', '2:123', '6:70'];
@@ -90,34 +103,24 @@ function validateSemanticMatch(word, queryRaw, location) {
     }
 
     // 7. Collision for root 'qrA' (ق ر أ), 'nwr' (ن و ر), '*kr' (ذ ك ر), and 'ktb' (ك ت ب)
-    // When query is Quran / قرآن, we must exclude:
-    // - menstruation periods (lemma quruw^' / قروء) from root qrA
-    // - fire / Hellfire (lemma naAr) from root nwr (since SimilarWord is نور / Light)
-    // - male/masculine (lemma *akar) and generic verbs of remembering (lemmas *akara, ta*ak~ara) from root *kr (since SimilarWord is ذكر / Reminder)
-    // - writing, prescribing, scribes (lemmas kataba, kaAtib, kaAtibu, makotuwb, {kotataba) from root ktb (since SimilarWord is كتاب / Book)
     const isQuranQuery = query.includes('قرآن') || queryLower.includes('quran');
     if (isQuranQuery) {
-        // Exclude menstruation period from root qrA
         if (rootVal === 'qrA' && lemVal === 'quruw^\'') {
             return false;
         }
-        // Exclude fire / Hellfire / physical light from root nwr
         if (rootVal === 'nwr') {
             if (lemVal === 'naAr') {
                 return false;
             }
-            // Exclude physical daylight/moonlight/creation of light verses
             const physicalLightVerses = ['6:1', '10:5', '13:16', '25:61', '35:20', '71:16'];
             if (physicalLightVerses.includes(location)) {
                 return false;
             }
         }
-        // Exclude male gender, human memory, and generic dhikr of Allah from root *kr
         if (rootVal === '*kr') {
             if (lemVal === '*akar' || lemVal === '*akara' || lemVal === 'ta*ak~ara') {
                 return false;
             }
-            // Exclude general remembrance, human recalling, and witness reminding locations
             const genericDhikrOrMemoryVerses = [
                 '2:198', '2:200', '2:203', '2:231', '2:239', '2:282',
                 '3:103', '3:135', '5:91', '10:71', '12:42', '12:45'
@@ -125,13 +128,11 @@ function validateSemanticMatch(word, queryRaw, location) {
             if (genericDhikrOrMemoryVerses.includes(location)) {
                 return false;
             }
-            // Exclude verses about historical nations forgetting their reminders
             const historicalReminders = ['5:13', '5:14', '6:44', '7:165'];
             if (historicalReminders.includes(location)) {
                 return false;
             }
         }
-        // Exclude writing/scribing contract verbs from root ktb
         if (rootVal === 'ktb') {
             const writingLemmas = ['kataba', 'kaAtib', 'kaAtibu', 'makotuwb', '{kotataba'];
             if (writingLemmas.includes(lemVal)) {
@@ -141,9 +142,6 @@ function validateSemanticMatch(word, queryRaw, location) {
     }
 
     // 8. Collision for root 'qSS' (ق ص ص)
-    // Root qSS covers both 'qaSaS' (stories/narrate) AND 'qiSaAS' (retribution/just retaliation).
-    // - When query is Stories / القصص, exclude 'qiSaAS' lemma.
-    // - When query is Retribution / القصاص, exclude 'qaSaS' and 'qaS~a' lemmas.
     const isStoriesQuery = query.includes('القصص') || queryLower.includes('stori') || queryLower.includes('narrative');
     const isQisasQuery = query.includes('القصاص') || queryLower.includes('qisas') || queryLower.includes('retribut');
 
@@ -164,6 +162,9 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const rawQuery = searchParams.get('q');
     const type = searchParams.get('type') || 'keyword';
+    const limitParam = searchParams.get('limit');
+    const limit = limitParam ? parseInt(limitParam, 10) : 1000;
+    const shouldEnrich = searchParams.get('enrich') === 'true';
 
     if (!rawQuery) {
         return NextResponse.json({ error: 'Query required' }, { status: 400 });
@@ -172,11 +173,11 @@ export async function GET(request) {
     const queryRaw = rawQuery.trim();
     const queryNormalized = toBuckwalter(queryRaw, true);
     const queryExact = toBuckwalter(queryRaw, false);
+    const queryNormAr = normalizeArabic(queryRaw);
 
     try {
         const data = await getQuranData();
         let results = [];
-        const limit = 50;
 
         // Helper to reconstruct verse and filter junk characters
         const reconstructVerse = (words) => {
@@ -224,11 +225,8 @@ export async function GET(request) {
             const searchTerms = new Set([queryNormalized]);
             if (type === 'semantic') {
                 matchedConcepts.forEach(c => {
-                    // Add similar word Buckwalter forms (these match short roots like jwd, b*l directly)
                     c.similarWords.forEach(sw => searchTerms.add(toBuckwalter(sw.ar, true)));
 
-                    // Extract actual ROOT values from words in key verses that match similar words
-                    // This finds the real 3-letter root (e.g. nfq for الانفاق key verse 2:261)
                     const nameBw = toBuckwalter(c.nameAr, true);
                     const swBwForms = c.similarWords.map(sw => toBuckwalter(sw.ar, true));
                     for (const kv of c.keyVerses) {
@@ -240,9 +238,6 @@ export async function GET(request) {
                                     if (!seg.features?.ROOT || !seg.features?.LEM) continue;
                                     const root = seg.features.ROOT;
                                     const lemBw = toBuckwalter(seg.features.LEM, true);
-                                    // Include root if: it matches a similar word, OR
-                                    // its consonants are a subset/superset of the concept name consonants
-                                    // (e.g. nfq ⊂ AnfAq for الانفاق)
                                     const nameConsonants = nameBw.replace(/[AaIiUuoF~`]/g, '');
                                     const rootConsonants = root.replace(/[AaIiUuoF~`]/g, '');
                                     if (
@@ -290,75 +285,107 @@ export async function GET(request) {
                                 pos: word.segments.find(s => s.features?.LEM || s.features?.ROOT)?.tag || ''
                             });
                             if (results.length >= limit) break outer;
-                            break; // One match per verse — stop scanning remaining words
+                            break; // One match per verse
                         }
                     }
                 }
             }
         } else {
-            // Keyword search
+            // Keyword & full text / morphology search with Arabic normalization
             outer: for (const [sura, ayas] of Object.entries(data.quran)) {
                 for (const [aya, words] of Object.entries(ayas)) {
                     const fullVerse = reconstructVerse(words);
 
                     for (const [wordIdx, word] of Object.entries(words)) {
                         const form = word.segments.map((s) => s.form).join('');
-                        const formNormalized = toBuckwalter(fromBuckwalter(form), true);
+                        const formAr = cleanArabic(fromBuckwalter(form));
+                        const formNormAr = normalizeArabic(formAr);
+                        const formBwNorm = toBuckwalter(formAr, true);
 
-                        if (form.includes(queryExact) || formNormalized.includes(queryNormalized)) {
+                        const lemRaw = word.segments.find(s => s.features?.LEM)?.features.LEM || '';
+                        const lemAr = cleanArabic(fromBuckwalter(lemRaw, false));
+                        const lemNormAr = normalizeArabic(lemAr);
+
+                        const rootRaw = word.segments.find(s => s.features?.ROOT)?.features.ROOT || '';
+                        const rootAr = fromBuckwalter(rootRaw, true);
+                        const rootNormAr = normalizeArabic(rootAr);
+
+                        const isMatch =
+                            form.includes(queryExact) ||
+                            formBwNorm.includes(queryNormalized) ||
+                            (queryNormAr && (
+                                formNormAr.includes(queryNormAr) ||
+                                lemNormAr.includes(queryNormAr) ||
+                                rootNormAr === queryNormAr ||
+                                (queryNormAr.length > 2 && rootNormAr.includes(queryNormAr))
+                            ));
+
+                        if (isMatch) {
                             results.push({
                                 location: `${sura}:${aya}`,
                                 wordIdx: wordIdx,
-                                word: cleanArabic(fromBuckwalter(form)),
+                                word: formAr,
                                 fullVerse: fullVerse,
                                 context: `سورة ${SURAH_NAMES[sura]}، آية ${aya}`,
-                                lemma: cleanArabic(word.segments.find(s => s.features?.LEM) ? fromBuckwalter(word.segments.find(s => s.features?.LEM).features.LEM, false) : ''),
-                                root: fromBuckwalter(word.segments.find(s => s.features?.ROOT)?.features.ROOT || '', true),
+                                lemma: lemAr,
+                                root: rootAr,
                                 pos: word.segments.find(s => s.features?.LEM || s.features?.ROOT)?.tag || ''
                             });
                             if (results.length >= limit) break outer;
+                            break; // One match per verse
                         }
                     }
                 }
             }
         }
 
-        // Enrich top 20 results with translations and tafsir
-        const enrichedResults = await Promise.all(results.slice(0, 20).map(async (res) => {
-            try {
-                const [sura, aya] = res.location.split(':');
-                const [transRes, tafsirRes] = await Promise.all([
-                    fetch(`https://api.quran.com/api/v4/verses/by_key/${sura}:${aya}?translations=20`),
-                    fetch(`https://api.quran.com/api/v4/tafsirs/16/by_ayah/${sura}:${aya}`)
-                ]);
+        // Enrich results only if specifically requested
+        if (shouldEnrich && results.length > 0) {
+            const enrichCount = Math.min(results.length, 20);
+            const enrichedResults = await Promise.all(results.slice(0, enrichCount).map(async (res) => {
+                try {
+                    const [sura, aya] = res.location.split(':');
+                    const [transRes, tafsirRes] = await Promise.all([
+                        fetch(`https://api.quran.com/api/v4/verses/by_key/${sura}:${aya}?translations=20`),
+                        fetch(`https://api.quran.com/api/v4/tafsirs/16/by_ayah/${sura}:${aya}`)
+                    ]);
 
-                const transData = await transRes.json();
-                const tafsirData = await tafsirRes.json();
+                    const transData = await transRes.json();
+                    const tafsirData = await tafsirRes.json();
 
-                const rawTafsir = tafsirData.tafsir?.text || '';
-                const cleanTafsir = rawTafsir.replace(/<[^>]*>/g, '').trim();
+                    const rawTafsir = tafsirData.tafsir?.text || '';
+                    const cleanTafsir = rawTafsir.replace(/<[^>]*>/g, '').trim();
 
-                let summary = cleanTafsir;
-                if (summary.length > 600) {
-                    summary = summary.substring(0, 600).split(' ').slice(0, -1).join(' ') + '...';
+                    let summary = cleanTafsir;
+                    if (summary.length > 600) {
+                        summary = summary.substring(0, 600).split(' ').slice(0, -1).join(' ') + '...';
+                    }
+
+                    return {
+                        ...res,
+                        translationEn: transData.verse?.translations?.[0]?.text?.replace(/<[^>]*>/g, '') || '',
+                        summaryAr: summary
+                    };
+                } catch (e) {
+                    console.error(`Enrichment failed for ${res.location}:`, e);
+                    return res;
                 }
+            }));
 
-                return {
-                    ...res,
-                    translationEn: transData.verse?.translations?.[0]?.text?.replace(/<[^>]*>/g, '') || '',
-                    summaryAr: summary
-                };
-            } catch (e) {
-                console.error(`Enrichment failed for ${res.location}:`, e);
-                return res;
-            }
-        }));
+            return NextResponse.json({
+                total: results.length,
+                results: [...enrichedResults, ...results.slice(enrichCount)]
+            });
+        }
 
-        const finalResults = [...enrichedResults, ...results.slice(20)];
-        return NextResponse.json({ results: finalResults });
+        return NextResponse.json({
+            total: results.length,
+            results: results
+        });
 
     } catch (error) {
         console.error('Search API Internal Error:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
+
