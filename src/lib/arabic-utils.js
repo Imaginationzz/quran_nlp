@@ -145,20 +145,31 @@ export function normalizeArabic(text) {
         .replace(/[\u064B-\u0652\u0670\u0653\u0640]/g, '') // Tashkeel, dagger alef, madda, tatweel
         .replace(/[إأآٱ]/g, 'ا') // Alef normalization
         .replace(/ى/g, 'ي') // Alef maqsura to Yaa
-        .replace(/ة/g, 'ه'); // Taa marbuta to Haa
+        .replace(/ة/g, 'ه') // Taa marbuta to Haa
+        .replace(/صلوه/g, 'صلاه') // Uthmani Quranic orthography normalization
+        .replace(/زكوه/g, 'زكاه')
+        .replace(/حيوه/g, 'حياه')
+        .replace(/نجوه/g, 'نجاه')
+        .replace(/مشكوه/g, 'مشكاه')
+        .replace(/غدوه/g, 'غداه')
+        .replace(/ربوا/g, 'ربا')
+        .replace(/صلوة/g, 'صلاة')
+        .replace(/زكوة/g, 'زكاة')
+        .replace(/حيوة/g, 'حياة');
 }
 
 /**
  * Converts Buckwalter transliteration back to Arabic script.
  * @param {string} text Buckwalter text
- * @param {boolean} isRoot If true, applies root aliases for conventional display.
+ * @param {boolean} isRoot If true, strips short vowels and diacritics from root.
  */
 export function fromBuckwalter(text, isRoot = false) {
     if (!text) return text;
     let processed = text;
-    if (isRoot && ROOT_ALIASES[text]) {
-        processed = ROOT_ALIASES[text];
+    if (isRoot) {
+        processed = processed.replace(/[auiFNK~o`{}_]/g, '');
     }
     return processed.split('').map(char => BUCKWALTER_TO_ARABIC[char] !== undefined ? BUCKWALTER_TO_ARABIC[char] : char).join('');
 }
+
 

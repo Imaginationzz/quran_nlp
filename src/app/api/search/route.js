@@ -194,11 +194,21 @@ export async function GET(request) {
         let matchedConcepts = [];
         if (type === 'semantic') {
             const qLower = queryRaw.toLowerCase();
+            const qNorm = normalizeArabic(queryRaw);
+            const qWithoutAl = (qNorm.startsWith('ال') && qNorm.length > 3) ? qNorm.slice(2) : qNorm;
+
             // Match concepts strictly by primary Arabic or English name to avoid concept bleed
-            matchedConcepts = CONCEPTS.filter(c =>
-                c.nameEn.toLowerCase().includes(qLower) ||
-                c.nameAr.includes(queryRaw)
-            );
+            matchedConcepts = CONCEPTS.filter(c => {
+                const cNorm = normalizeArabic(c.nameAr);
+                const cWithoutAl = (cNorm.startsWith('ال') && cNorm.length > 3) ? cNorm.slice(2) : cNorm;
+                return (
+                    c.nameEn.toLowerCase().includes(qLower) ||
+                    cNorm.includes(qNorm) ||
+                    cWithoutAl.includes(qWithoutAl) ||
+                    (qWithoutAl && cNorm.includes(qWithoutAl)) ||
+                    (qNorm && cWithoutAl.includes(qNorm))
+                );
+            });
 
             // Add key verses from concepts as high-priority results
             for (const concept of matchedConcepts) {
@@ -292,6 +302,10 @@ export async function GET(request) {
             }
         } else {
             // Keyword & full text / morphology search with Arabic normalization
+            const queryWithoutAl = (queryNormAr.startsWith('ال') && queryNormAr.length > 3)
+                ? queryNormAr.slice(2)
+                : null;
+
             outer: for (const [sura, ayas] of Object.entries(data.quran)) {
                 for (const [aya, words] of Object.entries(ayas)) {
                     const fullVerse = reconstructVerse(words);
@@ -316,7 +330,10 @@ export async function GET(request) {
                             (queryNormAr && (
                                 formNormAr.includes(queryNormAr) ||
                                 lemNormAr.includes(queryNormAr) ||
+                                (queryWithoutAl && formNormAr.includes(queryWithoutAl)) ||
+                                (queryWithoutAl && lemNormAr.includes(queryWithoutAl)) ||
                                 rootNormAr === queryNormAr ||
+                                (queryWithoutAl && rootNormAr === queryWithoutAl) ||
                                 (queryNormAr.length > 2 && rootNormAr.includes(queryNormAr))
                             ));
 

@@ -937,5 +937,89 @@ export const CONCEPTS = [
             { ar: "حياة", en: "Life preservation" },
             { ar: "عدل", en: "Justice" }
         ]
+    },
+    {
+        id: "prayer",
+        nameEn: "Prayer / Salah",
+        nameAr: "الصلاة",
+        icon: "🤲",
+        descriptionEn: "The second pillar of Islam and direct spiritual connection between the servant and Allah.",
+        descriptionAr: "الركن الثاني من أركان الإسلام، وعماد الدين، والصلة المباشرة بين العبد وربه.",
+        keyVerses: [
+            { key: "2:3", text: "الَّذِينَ يُؤْمِنُونَ بِالْغَيْبِ وَيُقِيمُونَ الصَّلَاةَ وَمِمَّا رَزَقْنَاهُمْ يُنْفِقُونَ" },
+            { key: "2:43", text: "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ" },
+            { key: "29:45", text: "إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنْكَرِ" }
+        ],
+        oppositeEn: "Abandonment of Prayer",
+        oppositeAr: "إضاعة الصلاة / تركها",
+        similarWords: [
+            { ar: "إقامة الصلاة", en: "Establishing prayer" },
+            { ar: "ركوع", en: "Bowing" },
+            { ar: "سجود", en: "Prostration" },
+            { ar: "صلوات", en: "Prayers" }
+        ]
+    },
+    {
+        id: "zakat",
+        nameEn: "Charity / Zakat",
+        nameAr: "الزكاة",
+        icon: "🪙",
+        descriptionEn: "The obligatory charity and purification of wealth for societal equity.",
+        descriptionAr: "حق الله المالي المفروض في أموال الأغنياء للفقراء والمساكين وتزكية النفوس.",
+        keyVerses: [
+            { key: "2:43", text: "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ" },
+            { key: "9:103", text: "خُذْ مِنْ أَمْوَالِهِمْ صَدَقَةً تُطَهِّرُهُمْ وَتُزَكِّيهِم بِهَا" },
+            { key: "2:277", text: "إِنَّ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَأَقَامُوا الصَّلَاةَ وَآتَوُا الزَّكَاةَ" }
+        ],
+        oppositeEn: "Hoarding / Greed",
+        oppositeAr: "كنز الأموال / البخل",
+        similarWords: [
+            { ar: "صدقة", en: "Charity" },
+            { ar: "إنفاق", en: "Spending" },
+            { ar: "تزكية", en: "Purification" },
+            { ar: "إيتاء الزكاة", en: "Giving zakat" }
+        ]
+    },
+    {
+        id: "fasting",
+        nameEn: "Fasting / Sawm",
+        nameAr: "الصيام",
+        icon: "🌙",
+        descriptionEn: "Abstinence for spiritual discipline, consciousness of Allah, and self-purification.",
+        descriptionAr: "الإمساك عن المفطرات تعبداً لله وتزكية للنفس وتحقيقاً للتقوى.",
+        keyVerses: [
+            { key: "2:183", text: "يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ" },
+            { key: "2:185", text: "شَهْرُ رَمَضَانَ الَّذِي أُنزِلَ فِيهِ الْقُرْآنُ هُدًى لِّلنَّاسِ" },
+            { key: "2:187", text: "أُحِلَّ لَكُمْ لَيْلَةَ الصِّيَامِ الرَّفَثُ إِلَىٰ نِسَائِكُمْ" }
+        ],
+        oppositeEn: "Breaking Fast / Excess",
+        oppositeAr: "الإفطار / الإسراف",
+        similarWords: [
+            { ar: "صوم", en: "Fast" },
+            { ar: "رمضان", en: "Ramadan" },
+            { ar: "إمساك", en: "Abstinence" },
+            { ar: "قيام", en: "Night prayer" }
+        ]
+    },
+    {
+        id: "hajj",
+        nameEn: "Pilgrimage / Hajj",
+        nameAr: "الحج",
+        icon: "🕋",
+        descriptionEn: "The sacred pilgrimage to the Sacred House of Allah in Makkah.",
+        descriptionAr: "قصد بيت الله الحرام لأداء المناسك المفروضة توحيداً وتعظيماً لله.",
+        keyVerses: [
+            { key: "3:97", text: "وَلِلَّهِ عَلَى النَّاسِ حِجُّ الْبَيْتِ مَنِ اسْتَطَاعَ إِلَيْهِ سَبِيلًا" },
+            { key: "2:196", text: "وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ" },
+            { key: "22:27", text: "وَأَذِّن فِي النَّاسِ بِالْحَجِّ يَأْتُوكَ رِجَالًا" }
+        ],
+        oppositeEn: "Neglect of Duty",
+        oppositeAr: "الترك / التثاقل",
+        similarWords: [
+            { ar: "عمرة", en: "Umrah" },
+            { ar: "طواف", en: "Circumambulation" },
+            { ar: "سعي", en: "Sa'i" },
+            { ar: "مناسك", en: "Rites" }
+        ]
     }
 ];

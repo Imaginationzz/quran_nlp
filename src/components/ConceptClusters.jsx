@@ -23,11 +23,15 @@ function highlightArabicText(text, query) {
   if (!query || !text) return text;
   const qNorm = normalizeArabic(query.trim());
   if (!qNorm) return text;
+  const qWithoutAl = (qNorm.startsWith('ال') && qNorm.length > 3) ? qNorm.slice(2) : null;
 
   const words = text.split(' ');
   return words.map((w, idx) => {
     const wNorm = normalizeArabic(w);
-    const isMatch = wNorm.includes(qNorm);
+    const isMatch =
+      wNorm.includes(qNorm) ||
+      (qWithoutAl && wNorm.includes(qWithoutAl));
+
     if (isMatch) {
       return (
         <mark key={idx} className="quran-search-highlight">
